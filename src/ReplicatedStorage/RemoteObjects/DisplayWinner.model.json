@@ -1,0 +1,5 @@
+{
+    "Name": "DisplayWinner",
+    "ClassName": "RemoteEvent",
+    "$ignoreUnknownInstances": true
+}

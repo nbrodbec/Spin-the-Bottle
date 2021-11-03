@@ -1,0 +1,5 @@
+{
+    "Name": "UpdateGunJoint",
+    "ClassName": "RemoteEvent",
+    "$ignoreUnknownInstances": true
+}

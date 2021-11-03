@@ -1,0 +1,5 @@
+{
+    "Name": "StartIntermission",
+    "ClassName": "RemoteEvent",
+    "$ignoreUnknownInstances": true
+}

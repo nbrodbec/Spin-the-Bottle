@@ -1,0 +1,5 @@
+{
+    "Name": "PlayerReady",
+    "ClassName": "RemoteFunction",
+    "$ignoreUnknownInstances": true
+}
