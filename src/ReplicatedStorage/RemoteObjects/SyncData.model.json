@@ -1,0 +1,5 @@
+{
+    "Name": "SyncData",
+    "ClassName": "RemoteEvent",
+    "$ignoreUnknownInstances": true
+}

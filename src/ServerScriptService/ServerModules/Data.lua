@@ -1,4 +1,5 @@
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local DataStoreService = game:GetService("DataStoreService")
 
 local Data = {}
@@ -12,6 +13,7 @@ local modules
 local utilities
 local dataStructures
 local constants
+local remotes = ReplicatedStorage.RemoteObjects
 
 local dataStore = DataStoreService:GetDataStore("Data")
 local template = {
@@ -21,12 +23,16 @@ local template = {
         shirt = 1210857662,
         pants = 6555797786
     },
+    deathAnimId = nil,
+    ownedSuits = {},
+    ownedAnims = {},
     corrupted = false,
     version = 1
 }
 
 local sessions = {}
 local timers = {}
+local dataLoaded = Instance.new("BindableEvent")
 
 ---- Private Functions ----
 
@@ -60,11 +66,12 @@ function Data.init(importedModules, importedUtilities, importedDataStructures, i
         local data = getData(player.UserId) or {}
         utilities.Reconcile.reconcile(data, template)
         sessions[player] = data
-
+        
         do
             debounce[player]:Fire()
             debounce[player]:Destroy()
             debounce[player] = nil  
+            dataLoaded:Fire(player)
         end 
     end
 
@@ -96,6 +103,8 @@ function Data.init(importedModules, importedUtilities, importedDataStructures, i
             closeEvent.Event:Wait()
         end
     end)
+
+    remotes.InitData.OnServerInvoke = Data.get
 end
 
 function Data.save(player)
@@ -118,10 +127,19 @@ function Data.save(player)
 end
 
 function Data.get(player, key)
-    if debounce[player] then debounce[player].Event:Wait() end
+    if not sessions[player] then
+        local p 
+        while p ~= player do
+            p = dataLoaded.Event:Wait()
+        end
+    end
     local data = sessions[player]
     if data then
-        return data[key]
+        if key then
+            return data[key]
+        else
+            return data
+        end
     end
 end
 
@@ -129,6 +147,7 @@ function Data.set(player, key, value)
     local data = sessions[player]
     if data then
         data[key] = value
+        remotes.SyncData:FireClient(player, key, value)
     end
 end
 

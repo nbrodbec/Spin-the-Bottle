@@ -22,6 +22,7 @@ print(VERSION)
 local clientModuleNames = {
     "Fan",
     "CharacterSounds",
+    "ClientData",
     "Gui",
     "Menu",
     "Stress",

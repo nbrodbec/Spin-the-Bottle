@@ -63,35 +63,35 @@ function Leaderstats.init(importedModules, importedUtilities, importedDataStruct
     -- end)
 end
 
-function Leaderstats.updateBoard()
-    for _, entry in ipairs(leaderboardGui:GetChildren()) do
-        if entry:IsA("GuiObject") then
-            entry:Destroy()
-        end
-    end
+-- function Leaderstats.updateBoard()
+--     for _, entry in ipairs(leaderboardGui:GetChildren()) do
+--         if entry:IsA("GuiObject") then
+--             entry:Destroy()
+--         end
+--     end
 
-    local entries = Leaderstats.getTopN(100)
-    for i, entry in ipairs(entries) do
-        local entryGui = leaderboardEntry:Clone()
-        entryGui.Place.Text = tostring(i)
-        entryGui.Points.Text = tostring(entry.value)
+--     local entries = Leaderstats.getTopN(100)
+--     for i, entry in ipairs(entries) do
+--         local entryGui = leaderboardEntry:Clone()
+--         entryGui.Place.Text = tostring(i)
+--         entryGui.Points.Text = tostring(entry.value)
 
-        local success, name, image
-        success, name = pcall(Players.GetNameFromUserIdAsync, Players, entry.key)
-        if success then
-            entryGui.PlayerName.Text = name
-        else
-            entryGui.PlayerName.Text = "[Error]"
-        end
+--         local success, name, image
+--         success, name = pcall(Players.GetNameFromUserIdAsync, Players, entry.key)
+--         if success then
+--             entryGui.PlayerName.Text = name
+--         else
+--             entryGui.PlayerName.Text = "[Error]"
+--         end
 
-        success, image = pcall(Players.GetUserThumbnailAsync, Players, entry.key, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size48x48)
-        if success then
-            entryGui.Icon.Image = image
-        end
+--         success, image = pcall(Players.GetUserThumbnailAsync, Players, entry.key, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size48x48)
+--         if success then
+--             entryGui.Icon.Image = image
+--         end
 
-        entryGui.Parent = leaderboardGui
-    end
-end
+--         entryGui.Parent = leaderboardGui
+--     end
+-- end
 
 function Leaderstats.addWin(player)
     local wins = modules.Data.get(player, "wins")

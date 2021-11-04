@@ -26,7 +26,6 @@ function DisplayWinner.init(importedModules, importedUtilities, importedDataStru
 end
 
 function DisplayWinner.display(winnerName)
-    -- Git Test! v2
     gui.diff.Text = winnerName
     gui.Enabled = true
 end
