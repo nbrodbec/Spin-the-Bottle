@@ -2,7 +2,7 @@ local CollectionService = game:GetService("CollectionService")
 local SoundService = game:GetService("SoundService")
 local MusicPlayer = {}
 MusicPlayer.dependencies = {
-    modules = {},
+    modules = {"Gui"},
     utilities = {"Shuffle"},
     dataStructures = {"Queue"},
     constants = {}
@@ -39,6 +39,18 @@ function MusicPlayer.init(importedModules, importedUtilities, importedDataStruct
         musicQueue:enqueue(sound)
     end
     task.spawn(MusicPlayer.start)
+
+    local isMuted = false
+    modules.Gui.menuGui.Sidebar.Mute.Activated:Connect(function()
+        if isMuted then
+            MusicPlayer.unpause()
+            modules.Gui.menuGui.Sidebar.Mute.Text = "Mute Music"
+        else
+            MusicPlayer.pause()
+            modules.Gui.menuGui.Sidebar.Mute.Text = "Unmute Music"
+        end
+        isMuted = not isMuted
+    end)
 end
 
 function MusicPlayer.start()

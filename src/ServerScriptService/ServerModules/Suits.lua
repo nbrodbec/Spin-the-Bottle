@@ -23,14 +23,7 @@ function Suits.init(importedModules, importedUtilities, importedDataStructures, 
     local function onPlayerAdded(player)
         local function onCharacterAdded(character)
             local suit = modules.Data.get(player, "suit")
-            local humanoid = character:WaitForChild("Humanoid")
-            local description = humanoid:GetAppliedDescription()
-            local suitFolder = ServerStorage.Suits:FindFirstChild(suit)
-            
-            description.Shirt = suit.shirt
-            description.Pants = suit.pants
-
-            humanoid:ApplyDescription(description)
+            Suits.applySuit(player, suit)
         end
         player.CharacterAppearanceLoaded:Connect(onCharacterAdded)
         
@@ -40,6 +33,19 @@ function Suits.init(importedModules, importedUtilities, importedDataStructures, 
     for _, p in ipairs(Players:GetPlayers()) do
         onPlayerAdded(p)
     end
+end
+
+function Suits.applySuit(player, suit)
+    local character = player.Character
+    if not character then return end
+
+    local humanoid = character:WaitForChild("Humanoid")
+    local description = humanoid:GetAppliedDescription()
+    
+    description.Shirt = suit.shirt
+    description.Pants = suit.pants
+
+    humanoid:ApplyDescription(description)
 end
 
 return Suits

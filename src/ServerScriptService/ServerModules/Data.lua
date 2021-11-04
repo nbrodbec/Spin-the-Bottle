@@ -23,7 +23,7 @@ local template = {
         shirt = 1210857662,
         pants = 6555797786
     },
-    deathAnimId = nil,
+  --  deathAnimId = nil,
     ownedSuits = {},
     ownedAnims = {},
     corrupted = false,
@@ -136,7 +136,15 @@ function Data.get(player, key)
     local data = sessions[player]
     if data then
         if key then
-            return data[key]
+            if typeof(key) == "table" then
+                local toReturn = {}
+                for _, k in ipairs(key) do
+                    table.insert(toReturn, data[k])
+                end
+                return unpack(toReturn)
+            else
+                return data[key]
+            end
         else
             return data
         end

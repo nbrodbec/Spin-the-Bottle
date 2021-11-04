@@ -127,6 +127,7 @@ function Death.init(importedModules, importedUtilities, importedDataStructures, 
             local id = modules.Data.get(player, "deathAnimId")
             local animTrack
             if id then
+                if not character.Parent then character.AncestryChanged:Wait() end
                 animation.AnimationId = "rbxassetid://"..id
                 animation.Parent = character
                 animTrack = humanoid:WaitForChild("Animator"):LoadAnimation(animation)

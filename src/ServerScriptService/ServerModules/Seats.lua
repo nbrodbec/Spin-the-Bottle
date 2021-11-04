@@ -26,7 +26,10 @@ function Seats.init(importedModules, importedUtilities, importedDataStructures, 
     seats = dataStructures.Stack.new()
     for _, model in ipairs(workspace.Seats:GetChildren()) do
         local seat = model:FindFirstChildOfClass("Seat")
-        if seat then seats:push(seat) end
+        if seat then 
+            seat.Disabled = true
+            seats:push(seat) 
+        end
     end
 end
 
@@ -41,6 +44,7 @@ function Seats.assignSeat(player)
     if not player.Character then player.CharacterAdded:Wait() end
     local humanoid = player.Character:WaitForChild("Humanoid")
 
+    seat.Disabled = false
     seat:Sit(humanoid)
     humanoid.JumpHeight = 0
 end
@@ -54,6 +58,7 @@ function Seats.clearSeat(player)
             playerSeatConnection[player]:Disconnect()
             playerSeatConnection[player] = nil
         end
+        seat.Disabled = true
         newSeatEvent:Fire()
     end
 end

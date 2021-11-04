@@ -47,7 +47,8 @@ local serverModuleNames = {
     "Suits",
     "Gun",
     "Marketplace",
-    "Chat"
+    "Chat",
+    "Shop"
 }
 local modules = {}
 

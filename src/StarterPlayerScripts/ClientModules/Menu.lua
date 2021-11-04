@@ -152,6 +152,13 @@ function Menu.closeAll()
     openMenu = nil
 end
 
+local function updateButton(button)
+    button.Purchase.ImageLabel.Visible = false
+    button.Purchase.TextLabel.Text = "Equip"
+    button.Purchase.TextLabel.Size = UDim2.fromScale(1, 1)
+    button.Purchase.TextLabel.Position = UDim2.fromScale(1, 0.5)
+end
+
 function Menu.setupShop()
     local suitFrame = gui.Menus.Shop.Suits
     local animFrame = gui.Menus.Shop.Anims
@@ -159,6 +166,14 @@ function Menu.setupShop()
     local anims = constants.ShopAssets.animations
 
     local itemFrame = ReplicatedStorage.Gui.ShopAvatarItem
+
+    local equippedSuit = modules.ClientData.get("suit")
+    local equippedAnim = modules.ClientData.get("deathAnimId")
+
+    local ownedSuits = modules.ClientData.get("ownedSuits")
+    local ownedAnims = modules.ClientData.get("ownedAnims")
+
+    local equippedSuitButton, equippedAnimButton
 
     for id, suit in ipairs(suits) do
         local frame = itemFrame:Clone()
@@ -201,6 +216,38 @@ function Menu.setupShop()
             connection:Disconnect()
             camera.CFrame = cameraCF
         end)
+
+        local canEquip = false
+        frame.Activated:Connect(function()
+            remotes.EquipSuit:FireServer(id)
+            if canEquip then
+                if equippedSuitButton then equippedSuitButton.Text = "Equip" end
+                equippedSuitButton = frame.Purchase.TextLabel
+                equippedSuitButton.Text = "Equipped"
+            end
+        end)
+        if modules.ClientData.get("wins") >= suit.level or table.find(ownedSuits, id) then
+            updateButton(frame)
+            canEquip = true
+        else
+            modules.ClientData.getChanged("wins"):Connect(function(wins)
+                if wins >= suit.level and not canEquip then
+                    updateButton(frame)
+                    canEquip = true
+                end
+            end)
+            modules.ClientData.getChanged("ownedSuits"):Connect(function(ownedSuits)
+                if not canEquip and table.find(ownedSuits, id)  then
+                    updateButton(frame)
+                    canEquip = true
+                end
+            end)
+        end
+
+        if suit.shirt == equippedSuit.shirt then
+            frame.Purchase.TextLabel.Text = "Equipped"
+            equippedSuitButton = frame.Purchase.TextLabel
+        end
     end
 
     for id, anim in ipairs(anims) do
@@ -233,9 +280,42 @@ function Menu.setupShop()
         frame.Parent = animFrame
         local track = animator:LoadAnimation(animation)
 
+        local canEquip = false
         frame.ViewportFrame.MouseEnter:Connect(function()
             track:Play()
         end)
+
+        frame.Activated:Connect(function()
+            remotes.EquipAnim:FireServer(id)
+            if canEquip then
+                if equippedAnimButton then equippedAnimButton.Text = "Equip" end
+                equippedAnimButton = frame.Purchase.TextLabel
+                equippedAnimButton.Text = "Equipped"
+            end
+        end)
+
+        if modules.ClientData.get("wins") >= anim.level or table.find(ownedAnims, id) then
+            updateButton(frame)
+            canEquip = true
+        else
+            modules.ClientData.getChanged("wins"):Connect(function(wins)
+                if wins >= anim.level then
+                    updateButton(frame)
+                    canEquip = true
+                end
+            end)
+            modules.ClientData.getChanged("ownedAnims"):Connect(function(ownedAnims)
+                if not canEquip and table.find(ownedAnims, id) then
+                    updateButton(frame)
+                    canEquip = true
+                end
+            end)
+        end
+
+        if anim.id == equippedAnim then
+            frame.Purchase.TextLabel.Text = "Equipped"
+            equippedAnimButton = frame.Purchase.TextLabel
+        end
     end
 end
 

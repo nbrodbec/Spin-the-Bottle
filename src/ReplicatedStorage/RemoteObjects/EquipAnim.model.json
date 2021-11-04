@@ -1,0 +1,5 @@
+{
+    "Name": "EquipAnim",
+    "ClassName": "RemoteEvent",
+    "$ignoreUnknownInstances": true
+}
