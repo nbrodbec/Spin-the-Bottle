@@ -13,6 +13,14 @@ local dataStructures
 local constants
 local player = Players.LocalPlayer
 
+---- Private Functions ----
+
+local function zoomOut()
+    player.CameraMode = Enum.CameraMode.Classic
+    player.CameraMinZoomDistance = 10
+    player.CameraMinZoomDistance = 0
+end
+
 ---- Public Functions ----
 
 function Death.init(importedModules, importedUtilities, importedDataStructures, importedConstants)
@@ -20,13 +28,16 @@ function Death.init(importedModules, importedUtilities, importedDataStructures, 
     utilities = importedUtilities
     dataStructures = importedDataStructures
     constants = importedConstants
-   
-    player.CharacterAdded:Connect(function(character)
+    local function onCharacterAdded(character)
         local humanoid = character:WaitForChild("Humanoid")
-        humanoid.Died:Connect(function()
-            -- Death screen
+        zoomOut()
+        humanoid.Seated:Connect(function()
+            player.CameraMode = Enum.CameraMode.LockFirstPerson
         end)
-    end)
+        humanoid.Died:Connect(zoomOut)
+    end
+    player.CharacterAdded:Connect(onCharacterAdded)
+    if player.Character then onCharacterAdded(player.Character) end
 end
 
 return Death

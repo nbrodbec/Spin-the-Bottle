@@ -28,7 +28,7 @@ local clientModuleNames = {
     "Stress",
     "Transition",
     "GunController",
-    "DeathController",
+    "CameraController",
     "DisplayWinner",
     "Intermission",
     "MinimumPlayers",
