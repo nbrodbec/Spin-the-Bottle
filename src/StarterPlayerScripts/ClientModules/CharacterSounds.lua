@@ -42,6 +42,9 @@ local function setupSounds(character)
 
     -- Silence death sound
     character:WaitForChild("HumanoidRootPart"):WaitForChild("Died").Volume = 0
+
+    -- Silence jumping
+    character:WaitForChild("Humanoid"):SetStateEnabled(Enum.HumanoidStateType.Jumping, false)
 end
 
 local function cleanupSounds(character)

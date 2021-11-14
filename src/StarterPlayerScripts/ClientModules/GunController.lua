@@ -101,6 +101,7 @@ function GunController.giveGun(model)
     marker = ReplicatedStorage.Arrow:Clone()
     marker.Parent = workspace
     ContextActionService:BindAction("shoot", GunController.shoot, true, Enum.UserInputType.MouseButton1)
+    ContextActionService:SetTitle("shoot", "Fire")
     ContextActionService:BindAction("aim", GunController.aim, false, Enum.UserInputType.MouseMovement, Enum.UserInputType.Touch)
     
     local t = 0
@@ -196,6 +197,7 @@ function GunController.aim(actionName, state, object)
 
         marker.CFrame = (marker.CFrame - marker.CFrame.Position) + Vector3.new(0, 2, 0) + target
     end
+    return Enum.ContextActionResult.Pass
 end
 
 return GunController
