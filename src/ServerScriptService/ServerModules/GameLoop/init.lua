@@ -107,7 +107,7 @@ function GameLoop.start()
 
         while GameLoop.running do
             local module = GameLoop.current
-            module.start(livePlayers)
+            module.start(livePlayers, players)
             GameLoop.current = module.next
         end
 

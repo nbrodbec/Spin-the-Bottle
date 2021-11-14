@@ -27,12 +27,13 @@ function Intermission.init(importedModules, importedUtilities, importedDataStruc
     Intermission.next = modules.RoundSetup
 end
 
-function Intermission.start(livePlayers)
+function Intermission.start(livePlayers, players)
     local startTime = DateTime.now().UnixTimestampMillis/1000 + constants.Values.INTERMISSION_TIME
     remotes.StartIntermission:FireAllClients(startTime)
     timer:start():yield()
-    for player in livePlayers.iterate() do
+    for player in players.iterate() do
         modules.Seats.assignSeat(player)
+        livePlayers[player] = true
     end
 end
 
