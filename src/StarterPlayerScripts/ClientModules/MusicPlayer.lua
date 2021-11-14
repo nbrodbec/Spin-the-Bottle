@@ -41,13 +41,13 @@ function MusicPlayer.init(importedModules, importedUtilities, importedDataStruct
     task.spawn(MusicPlayer.start)
 
     local isMuted = false
-    modules.Gui.menuGui.Sidebar.Mute.Activated:Connect(function()
+    modules.Gui.menuGui.Mute.Activated:Connect(function()
         if isMuted then
             MusicPlayer.unpause()
-            modules.Gui.menuGui.Sidebar.Mute.Text = "Mute Music"
+            modules.Gui.menuGui.Mute.ImageRectOffset = Vector2.new(684, 324)
         else
             MusicPlayer.pause()
-            modules.Gui.menuGui.Sidebar.Mute.Text = "Unmute Music"
+            modules.Gui.menuGui.Mute.ImageRectOffset = Vector2.new(4, 404)
         end
         isMuted = not isMuted
     end)

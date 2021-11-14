@@ -72,6 +72,10 @@ function Marketplace.init(importedModules, importedUtilities, importedDataStruct
         shopUnlockInfo[player] = nil
         return Enum.ProductPurchaseDecision.PurchaseGranted
     end
+
+    function remotes.PlayerHasPass.OnServerInvoke(player, idName)
+        return Marketplace.playerHasPass(player, constants.GamepassIDs[idName])
+    end
 end
 
 function Marketplace.playerHasPass(player, id)

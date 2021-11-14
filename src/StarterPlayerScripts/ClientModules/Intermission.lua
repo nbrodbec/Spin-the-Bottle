@@ -5,7 +5,7 @@ local Players = game:GetService("Players")
 
 local Intermission = {}
 Intermission.dependencies = {
-    modules = {"Gui", "MinimumPlayers", "Transition", "DisplayWinner"},
+    modules = {"Gui", "MinimumPlayers", "Transition", "DisplayWinner", "Menu"},
     utilities = {},
     dataStructures = {},
     constants = {}
@@ -56,6 +56,7 @@ function Intermission.start(startTime)
     end
     modules.Transition.start(3)
     Intermission.stop()
+    modules.Menu.closeAll()
 end
 
 function Intermission.stop()
