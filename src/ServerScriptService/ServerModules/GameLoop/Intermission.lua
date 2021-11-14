@@ -1,7 +1,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Intermission = {}
 Intermission.dependencies = {
-    modules = {"Seats", "BottleSpin"},
+    modules = {"Seats", "BottleSpin", "RoundSetup"},
     utilities = {"Timer"},
     dataStructures = {},
     constants = {"Values"}
@@ -24,7 +24,7 @@ function Intermission.init(importedModules, importedUtilities, importedDataStruc
     
     timer = utilities.Timer.new(constants.Values.INTERMISSION_TIME)
     timer:useDateTime()
-    Intermission.next = modules.BottleSpin
+    Intermission.next = modules.RoundSetup
 end
 
 function Intermission.start(livePlayers)

@@ -60,6 +60,11 @@ function Gui.init(importedModules, importedUtilities, importedDataStructures, im
     Gui.winnerGui = winnerGui:Clone()
     Gui.winnerGui.Parent = playerGui
 
+    local announcementGui = gui:WaitForChild("RoundAnnouncement")
+    Gui.announcementGui = announcementGui:Clone()
+    Gui.announcementGui.Parent = playerGui
+
+
     bindTag("UnderlinedButton", function(button)
         local underline = button:FindFirstChildWhichIsA("Frame")
         local startSize = button.Size

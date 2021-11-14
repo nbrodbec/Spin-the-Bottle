@@ -2,7 +2,7 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Gun = {}
 Gun.dependencies = {
-    modules = {"BottleSpin", "Seats", "Marketplace"},
+    modules = {"BottleSpin", "Seats", "Marketplace", "RoundSetup"},
     utilities = {"Timer"},
     dataStructures = {},
     constants = {"Values", "GamepassIDs"}
@@ -22,7 +22,7 @@ function Gun.init(importedModules, importedUtilities, importedDataStructures, im
     utilities = importedUtilities
     dataStructures = importedDataStructures
     constants = importedConstants
-    timer = utilities.Timer.new(constants.Values.TIME_WITH_GUN)
+    
     
     Gun.next = modules.BottleSpin
     -- TODO: put a rate limiter here
@@ -45,6 +45,7 @@ function Gun.start(players)
     local player = modules.BottleSpin.selectedPlayer
     if not player.Parent then return end
 
+    timer = utilities.Timer.new(modules.RoundSetup.details.timeWithGun)
     local chance = 1/(total-blanks)
     local isBlank = math.random() > chance
     if isBlank then 
@@ -66,7 +67,7 @@ function Gun.start(players)
     weld.Part1 = gun.Handle
     weld.C0 = CFrame.new(0, -player.Character['Right Arm'].Size.Y/2, 0) * CFrame.Angles(-math.pi/2, 0, 0)
 
-    remotes.GiveGunEvent:FireClient(player, list, gun, isBlank)
+    remotes.GiveGunEvent:FireClient(player, list, gun, isBlank, modules.RoundSetup.details.timeWithGun)
     local playerShot
     local connection; connection = remotes.TargetChosen.OnServerEvent:Connect(function(p, target)
         if p == player and target and players[target] then
