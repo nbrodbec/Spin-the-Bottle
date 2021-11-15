@@ -25,14 +25,13 @@ local startingC0
 ---- Private Functions ----
 
 local function getPlayerAtCursor()
-    local mouse = player:GetMouse()
     local camera = workspace.CurrentCamera
-    local cameraToMouse = mouse.UnitRay.Direction
+    local cameraToMouse = camera.CFrame.LookVector
 
     local closestTheta = 2*math.pi
     local closestPlayer
     for _, p in ipairs(otherPlayers) do
-        local cameraToPlayer = (p.Character.Head.Position - mouse.UnitRay.Origin).Unit
+        local cameraToPlayer = (p.Character.Head.Position - camera.CFrame.Position).Unit
         local theta = math.acos(cameraToPlayer:Dot(cameraToMouse))
         if theta < closestTheta then
             closestTheta = theta

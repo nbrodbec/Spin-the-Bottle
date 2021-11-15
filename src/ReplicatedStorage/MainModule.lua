@@ -14,7 +14,7 @@ local dependencies = {
 }
 
 local Main = {}
-local VERSION = "1.0.5"
+local VERSION = "1.0.6"
 print(VERSION)
 
 ---- Private Members ----
