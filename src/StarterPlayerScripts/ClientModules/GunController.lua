@@ -44,6 +44,7 @@ end
 local gun
 local marker
 local isBlank
+local killed
 
 ---- Public Functions ----
 
@@ -102,7 +103,7 @@ function GunController.giveGun(model)
     ContextActionService:BindAction("shoot", GunController.shoot, true, Enum.UserInputType.MouseButton1)
     ContextActionService:SetTitle("shoot", "Fire")
     ContextActionService:BindAction("aim", GunController.aim, false, Enum.UserInputType.MouseMovement, Enum.UserInputType.Touch)
-    
+    killed = nil
     local t = 0
     connection = RunService.Heartbeat:Connect(function(deltaTime)
         t += deltaTime
@@ -152,7 +153,7 @@ function GunController.shoot(actionName, state, object)
     if not timer.running then return end
     timer:stop()
     modules.Stress.endStress()
-    local killed = getPlayerAtCursor()
+    killed = killed or getPlayerAtCursor()
     remotes.TargetChosen:FireServer(killed)
     if not isBlank then
         for _, child in ipairs(gun.Muzzle:GetChildren()) do
@@ -184,6 +185,7 @@ function GunController.aim(actionName, state, object)
 
         local arm = player.Character["Right Arm"]
         local target = getPlayerAtCursor() if not target then print(false) end
+        killed = target
         target = target and target.Character.Head.Position or mouse.Hit.Position
 
         local pivotPos = (joint.Part0.CFrame * startingC0).Position
