@@ -4,7 +4,7 @@ local Players = game:GetService("Players")
 
 local Marketplace = {}
 Marketplace.dependencies = {
-    modules = {"Data"},
+    modules = {"Data", "MusicPlayer"},
     utilities = {},
     dataStructures = {},
     constants = {"GamepassIDs"}
@@ -17,6 +17,9 @@ local remotes = ReplicatedStorage.RemoteObjects
 
 local shopUnlockId = 1217983283
 local shopUnlockInfo = {}
+
+local customMusicId = 0
+local customMusicInfo = {}
 
 ---- Private Functions ----
 
@@ -37,40 +40,34 @@ function Marketplace.init(importedModules, importedUtilities, importedDataStruct
     utilities = importedUtilities
     dataStructures = importedDataStructures
     constants = importedConstants
-    
-    local function playerAdded(player)
-     
-    end
-
-    Players.PlayerAdded:Connect(playerAdded)
-    for _, player in ipairs(Players:GetPlayers()) do
-        playerAdded(player)
-    end
-
-    Players.PlayerRemoving:Connect(function(player)
-     
-    end)
 
     function MarketplaceService.ProcessReceipt(info)
         local player = Players:GetPlayerByUserId(info.PlayerId)
-        local unlockInfo = shopUnlockInfo[player]
-        if not unlockInfo then return Enum.ProductPurchaseDecision.NotProcessedYet end
+        if info.ProductId == shopUnlockId then
+            local unlockInfo = shopUnlockInfo[player]
+            if not unlockInfo then return Enum.ProductPurchaseDecision.NotProcessedYet end
 
-        if unlockInfo.type == "suit" then
-            local ownedSuits = modules.Data.get(player, "ownedSuits")
-            table.insert(ownedSuits, unlockInfo.id)
-            modules.Data.set(player, "ownedSuits", ownedSuits)
-        elseif unlockInfo.type == "animation" then
-            local ownedAnims = modules.Data.get(player, "ownedAnims")
-            table.insert(ownedAnims, unlockInfo.id)
-            modules.Data.set(player, "ownedAnims", ownedAnims)
-        else
-            return Enum.ProductPurchaseDecision.NotProcessedYet
+            if unlockInfo.type == "suit" then
+                local ownedSuits = modules.Data.get(player, "ownedSuits")
+                table.insert(ownedSuits, unlockInfo.id)
+                modules.Data.set(player, "ownedSuits", ownedSuits)
+            elseif unlockInfo.type == "animation" then
+                local ownedAnims = modules.Data.get(player, "ownedAnims")
+                table.insert(ownedAnims, unlockInfo.id)
+                modules.Data.set(player, "ownedAnims", ownedAnims)
+            else
+                return Enum.ProductPurchaseDecision.NotProcessedYet
+            end
+
+            modules.Data.save(player)
+            shopUnlockInfo[player] = nil
+            return Enum.ProductPurchaseDecision.PurchaseGranted
+        elseif info.ProductId == customMusicId then
+            local musicInfo = customMusicInfo[player]
+            if not musicInfo then return Enum.ProductPurchaseDecision.NotProcessedYet end
+            modules.MusicPlayer.addToQueue(musicInfo.id)
+            return Enum.ProductPurchaseDecision.PurchaseGranted
         end
-
-        modules.Data.save(player)
-        shopUnlockInfo[player] = nil
-        return Enum.ProductPurchaseDecision.PurchaseGranted
     end
 
     function remotes.PlayerHasPass.OnServerInvoke(player, idName)
@@ -102,6 +99,23 @@ function Marketplace.promptAnimPurchase(player, id)
     if not success then
         print("MarketplaceService.PromptGamePassPurchase Error: "..msg)
     end
+end
+
+function Marketplace.promptAudioPurchase(player, id)
+    local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, id, Enum.InfoType.Asset)
+    if success and info.AssetTypeId == 3 then
+        customMusicInfo[player] = {
+            id = id
+        }
+        local success, msg = pcall(MarketplaceService.PromptProductPurchase, MarketplaceService, player, customMusicId)
+        if not success then
+            print("MarketplaceService.PromptGamePassPurchase Error: "..msg)
+            return false, "Unknown Error"
+        else
+            return true, "Processing..."
+        end
+    end
+    return false, "Invalid ID!"
 end
 
 

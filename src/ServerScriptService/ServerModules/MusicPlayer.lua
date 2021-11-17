@@ -2,7 +2,7 @@ local CollectionService = game:GetService("CollectionService")
 local SoundService = game:GetService("SoundService")
 local MusicPlayer = {}
 MusicPlayer.dependencies = {
-    modules = {"Gui"},
+    modules = {},
     utilities = {"Shuffle"},
     dataStructures = {"Queue"},
     constants = {}
@@ -19,6 +19,8 @@ local musicIds = {
     1837566969
 }
 local musicQueue
+local customQueue
+local soundObjects
 
 ---- Public Functions ----
 
@@ -29,9 +31,12 @@ function MusicPlayer.init(importedModules, importedUtilities, importedDataStruct
     constants = importedConstants
     
     musicQueue = dataStructures.Queue.new()
+    customQueue = dataStructures.Queue.new()
+    soundObjects = dataStructures.Queue.new()
     for _, id in ipairs(utilities.Shuffle(musicIds)) do
         local sound = Instance.new("Sound")
         sound.SoundId = string.format("rbxassetid://%d", id)
+        sound.Volume = 0.5
         sound.Parent = CollectionService:GetTagged("speaker")[1]
         if not sound.IsLoaded then
             sound.Loaded:Wait()
@@ -39,39 +44,36 @@ function MusicPlayer.init(importedModules, importedUtilities, importedDataStruct
         musicQueue:enqueue(sound)
     end
     task.spawn(MusicPlayer.start)
-
-    local isMuted = false
-    modules.Gui.menuGui.Mute.Activated:Connect(function()
-        if isMuted then
-            MusicPlayer.unpause()
-            modules.Gui.menuGui.Mute.ImageRectOffset = Vector2.new(684, 324)
-        else
-            MusicPlayer.pause()
-            modules.Gui.menuGui.Mute.ImageRectOffset = Vector2.new(4, 404)
-        end
-        isMuted = not isMuted
-    end)
 end
 
 function MusicPlayer.start()
     while true do
-        local sound = musicQueue:dequeue()
+        local sound = customQueue:dequeue()
         if sound then
-            musicQueue:enqueue(sound)
+            -- Using custom sound
             sound:Play()
             sound.Ended:Wait()
-        end
+            soundObjects:enqueue(sound)
+        else
+            sound = musicQueue:dequeue()
+            if sound then
+                musicQueue:enqueue(sound)
+                sound:Play()
+                sound.Ended:Wait()
+            end
+        end   
     end
 end
 
-function MusicPlayer.pause()
-    local sound = musicQueue:peekTail()
-    if sound then sound:Pause() end
-end
-
-function MusicPlayer.unpause()
-    local sound = musicQueue:peekTail()
-    if sound then sound:Resume() end
+function MusicPlayer.addToQueue(id)
+    local sound = soundObjects:dequeue()
+    if not sound then
+        sound = Instance.new("Sound")
+        sound.Volume = 0.5
+        sound.Parent = CollectionService:GetTagged("speaker")[1]
+    end
+    sound.SoundId = string.format("rbxassetid://%d", id)
+    customQueue:enqueue(sound)
 end
 
 return MusicPlayer

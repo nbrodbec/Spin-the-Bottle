@@ -33,7 +33,7 @@ local clientModuleNames = {
     "RoundAnnouncement",
     "Intermission",
     "MinimumPlayers",
-    "MusicPlayer",
+    "MusicController",
     "FinalizeClient" -- Last module
 }
 local serverModuleNames = {
@@ -49,6 +49,7 @@ local serverModuleNames = {
     "Suits",
     "Gun",
     "Marketplace",
+    "MusicPlayer",
     "Chat",
     "Shop"
 }
