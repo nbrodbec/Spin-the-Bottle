@@ -2,6 +2,7 @@ local Players = game:GetService("Players")
 local ContextActionService = game:GetService("ContextActionService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local GunController = {}
@@ -98,6 +99,7 @@ end
 
 local connection
 function GunController.giveGun(model)
+    UserInputService.ModalEnabled = true
     gun = model
     marker = ReplicatedStorage.Arrow:Clone()
     marker.Parent = workspace
@@ -136,6 +138,7 @@ function GunController.updateJoint(p, cframe)
 end
 
 function GunController.removeGun()
+    UserInputService.ModalEnabled = false
     if connection then connection:Disconnect() end
     if player.Character and player.Character.Humanoid.Health > 0 then
         player.Character.Torso["Right Shoulder"].C0 = startingC0
