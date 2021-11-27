@@ -31,6 +31,7 @@ local function getPlayerAtCursor()
     local closestTheta = 2*math.pi
     local closestPlayer
     for _, p in ipairs(otherPlayers) do
+        if not (p.Parent and p.Character) then continue end
         local cameraToPlayer = (p.Character.Head.Position - camera.CFrame.Position).Unit
         local theta = math.acos(cameraToPlayer:Dot(cameraToMouse))
         if theta < closestTheta then
