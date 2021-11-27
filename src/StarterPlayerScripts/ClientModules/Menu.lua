@@ -176,7 +176,7 @@ function Menu.setupShop()
     local equippedSuitButton, equippedAnimButton
 
     for id, suit in ipairs(suits) do
-        if suit.isCurrentlyAvailble == false then continue end
+        if suit.isCurrentlyAvailable == false then continue end
 		local frame = itemFrame:Clone()
 		frame.LayoutOrder = suit.layoutOrder or 0
         frame.Name = tostring(id)
