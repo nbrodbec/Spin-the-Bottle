@@ -176,7 +176,9 @@ function Menu.setupShop()
     local equippedSuitButton, equippedAnimButton
 
     for id, suit in ipairs(suits) do
-        local frame = itemFrame:Clone()
+        if suit.isCurrentlyAvailble == false then continue end
+		local frame = itemFrame:Clone()
+		frame.LayoutOrder = suit.layoutOrder or 0
         frame.Name = tostring(id)
         frame.Title.Text = suit.name
         frame.Wins.Text = string.format("%d Wins", suit.level)
