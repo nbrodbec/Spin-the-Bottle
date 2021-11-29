@@ -99,7 +99,6 @@ end
 
 local connection
 function GunController.giveGun(model)
-    UserInputService.ModalEnabled = true
     gun = model
     marker = ReplicatedStorage.Arrow:Clone()
     marker.Parent = workspace
