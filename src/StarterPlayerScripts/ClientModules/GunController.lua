@@ -43,6 +43,16 @@ local function getPlayerAtCursor()
     return closestPlayer
 end
 
+local function disableJumpButton()
+    local touchGui = player.PlayerGui:FindFirstChild("TouchGui")
+    if touchGui then
+        local jumpButton = touchGui.TouchControlFrame:FindFirstChild("JumpButton")
+        if jumpButton then
+            jumpButton:Destroy()
+        end
+    end
+end
+
 local gun
 local marker
 local isBlank
@@ -99,6 +109,7 @@ end
 
 local connection
 function GunController.giveGun(model)
+    disableJumpButton()
     gun = model
     marker = ReplicatedStorage.Arrow:Clone()
     marker.Parent = workspace
@@ -137,7 +148,6 @@ function GunController.updateJoint(p, cframe)
 end
 
 function GunController.removeGun()
-    UserInputService.ModalEnabled = false
     if connection then connection:Disconnect() end
     if player.Character and player.Character.Humanoid.Health > 0 then
         player.Character.Torso["Right Shoulder"].C0 = startingC0
