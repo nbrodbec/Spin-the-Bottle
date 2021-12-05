@@ -62,7 +62,7 @@ function CharacterSounds.init(importedModules, importedUtilities, importedDataSt
 
     local player = Players.LocalPlayer
     if player.Character then
-        setupFootsteps(player.Character)
+        setupSounds(player.Character)
     end
     player.CharacterAdded:Connect(setupSounds)
     player.CharacterRemoving:Connect(cleanupSounds)
