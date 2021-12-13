@@ -23,7 +23,7 @@ function Intermission.init(importedModules, importedUtilities, importedDataStruc
     constants = importedConstants
     
     timer = utilities.Timer.new(constants.Values.INTERMISSION_TIME)
-    timer:useDateTime()
+    timer:useServerTime()
     Intermission.next = modules.RoundSetup
 end
 

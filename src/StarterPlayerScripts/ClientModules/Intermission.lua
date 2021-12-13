@@ -39,10 +39,10 @@ function Intermission.start(startTime)
     modules.DisplayWinner.hide()
     gui.Enabled = true
     startTime -= 1.5
-    local timeLeft = startTime - DateTime.now().UnixTimestampMillis/1000
+    local timeLeft = startTime - workspace:GetServerTimeNow()
     local lastSecond = 0
-    while DateTime.now().UnixTimestampMillis/1000 < startTime do
-        timeLeft = startTime - DateTime.now().UnixTimestampMillis/1000
+    while workspace:GetServerTimeNow() < startTime do
+        timeLeft = startTime - workspace:GetServerTimeNow()
         local t = math.floor(timeLeft)
         RunService.Heartbeat:Wait()
         local m = math.floor(t/60)

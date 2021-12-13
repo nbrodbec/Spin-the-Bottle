@@ -45,9 +45,19 @@ function Timer:useDateTime()
     self._useDateTime = true
 end
 
+function Timer:useServerTime()
+    self._useServerTime = true
+    print(workspace:GetServerTimeNow())
+end
+
 function Timer:start()
     if self.running then self:stop() end
-    self.started = self._useDateTime and DateTime.now().UnixTimestampMillis/1000 or time()
+    self.started =  if self._useDateTime then 
+                        DateTime.now().UnixTimestampMillis/1000 
+                    elseif self._useServerTime then 
+                        workspace:GetServerTimeNow() 
+                    else 
+                        time()
     self.stopped = nil
     binaryInsert(timers, self)
     self.running = true
@@ -67,7 +77,7 @@ function Timer:yield()
 end
 
 function Timer:timeLeft()
-    return self.length - ((self._useDateTime and DateTime.now().UnixTimestampMillis/1000 or time()) - self.started)
+    return self.length - ((self._useDateTime and DateTime.now().UnixTimestampMillis/1000 or self._useServerTime and workspace:GetServerTimeNow() or time()) - self.started)
 end
 
 RunService.Stepped:Connect(function()
