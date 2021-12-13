@@ -83,7 +83,10 @@ function Gun.start(players)
         if not isBlank then
             Gun.killStreaks[player] = Gun.killStreaks[player] and Gun.killStreaks[player] + 1 or 1
             if playerShot.Character then
-                playerShot.Character.Humanoid.Health = 0
+                local humanoid = playerShot.Character:FindFirstChild("Humanoid")
+                if humanoid then
+                    humanoid.Health = 0
+                end
                 players[playerShot] = nil
                 modules.Seats.clearSeat(playerShot)
             end
