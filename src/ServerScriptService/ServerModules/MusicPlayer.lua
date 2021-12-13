@@ -5,19 +5,13 @@ MusicPlayer.dependencies = {
     modules = {},
     utilities = {"Shuffle"},
     dataStructures = {"Queue"},
-    constants = {}
+    constants = {"MusicList"}
 }
 local modules
 local utilities
 local dataStructures
 local constants
-local musicIds = {
-    474829770,
-    4919760420,
-    1835749037,
-    1841979451,
-    1837566969
-}
+
 local musicQueue
 local customQueue
 local soundObjects
@@ -33,7 +27,7 @@ function MusicPlayer.init(importedModules, importedUtilities, importedDataStruct
     musicQueue = dataStructures.Queue.new()
     customQueue = dataStructures.Queue.new()
     soundObjects = dataStructures.Queue.new()
-    for _, id in ipairs(utilities.Shuffle(musicIds)) do
+    for _, id in ipairs(utilities.Shuffle(constants.MusicList)) do
         local sound = Instance.new("Sound")
         sound.SoundId = string.format("rbxassetid://%d", id)
         sound.Volume = 0.5
