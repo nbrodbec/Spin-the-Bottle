@@ -37,7 +37,6 @@ function ClientData.get(...)
 end
 
 function ClientData.set(key, value)
-    print("Setting...")
     data[key] = value
     if events[key] then events[key]:Fire(value) end 
 end

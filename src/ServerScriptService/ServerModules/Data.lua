@@ -23,11 +23,24 @@ local template = {
         shirt = 1210857662,
         pants = 6555797786
     },
+    gun = 1,
+    
   --  deathAnimId = nil,
+    ownedGuns = {1},
     ownedSuits = {},
     ownedAnims = {},
     corrupted = false,
+
+    settings = {
+        bloodEnabled = true,
+        musicEnabled = true
+    },
+
     version = 1
+}
+
+local clientSafeKeys = {
+    settings = true
 }
 
 local sessions = {}
@@ -105,6 +118,7 @@ function Data.init(importedModules, importedUtilities, importedDataStructures, i
     end)
 
     remotes.InitData.OnServerInvoke = Data.get
+    remotes.SetData.OnServerEvent:Connect(Data.clientSet)
 end
 
 function Data.save(player)
@@ -155,6 +169,15 @@ function Data.set(player, key, value)
     local data = sessions[player]
     if data then
         data[key] = value
+        remotes.SyncData:FireClient(player, key, value)
+    end
+end
+
+function Data.clientSet(player, key, value)
+    local data = sessions[player]
+    if data and key and clientSafeKeys[key] then
+        data[key] = value
+        utilities.Reconcile.reconcile(data, template)
         remotes.SyncData:FireClient(player, key, value)
     end
 end

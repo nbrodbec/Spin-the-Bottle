@@ -1,3 +1,4 @@
+local MarketplaceService = game:GetService("MarketplaceService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shop = {}
 Shop.dependencies = {
@@ -22,6 +23,7 @@ function Shop.init(importedModules, importedUtilities, importedDataStructures, i
     
     remotes.EquipSuit.OnServerEvent:Connect(Shop.handleSuitClick)
     remotes.EquipAnim.OnServerEvent:Connect(Shop.handleAnimClick)
+    remotes.EquipGun.OnServerEvent:Connect(Shop.handleGunClick)
 end
 
 function Shop.handleSuitClick(player, id)
@@ -45,6 +47,21 @@ function Shop.handleAnimClick(player, id)
         modules.Data.set(player, "deathAnimId", anim.id)
     else
         modules.Marketplace.promptAnimPurchase(player, id)
+    end
+end
+
+function Shop.handleGunClick(player, id)
+    local gun = constants.ShopAssets.guns[id]
+    local wins, ownedGuns = modules.Data.get(player, {"wins", "ownedGuns"})
+    if wins >= gun.level or table.find(ownedGuns, id) then
+        modules.Data.set(player, "gun", id)
+    elseif gun.gamepassId and modules.Marketplace.playerHasPass(player, gun.gamepassId) then
+        modules.Data.set(player, "gun", id)
+    elseif gun.gamepassId then
+        local success, msg = pcall(MarketplaceService.PromptGamePassPurchase, MarketplaceService, player, gun.gamepassId)
+        if not success then warn(msg) end
+    else
+        modules.Marketplace.promptGunPurchase(player, id)
     end
 end
 

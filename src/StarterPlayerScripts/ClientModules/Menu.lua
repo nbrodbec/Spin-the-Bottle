@@ -30,13 +30,6 @@ local function playerHasPass(player, id)
     end
 end
 
-local function bindTag(tag, fun)
-    for i,v in ipairs(CollectionService:GetTagged(tag)) do
-        fun(v)
-    end
-    CollectionService:GetInstanceAddedSignal(tag):Connect(fun)
-end
-
 ---- Public Functions ----
 
 function Menu.init(importedModules, importedUtilities, importedDataStructures, importedConstants)
@@ -77,7 +70,7 @@ function Menu.init(importedModules, importedUtilities, importedDataStructures, i
         Menu.open("Donation")
     end)
 
-    bindTag("exit", function(button)
+    Menu.bindTag("exit", function(button)
         button.Activated:Connect(Menu.closeAll)
     end)
 
@@ -102,7 +95,7 @@ function Menu.init(importedModules, importedUtilities, importedDataStructures, i
     end)
 
     local selectedButton
-    bindTag("ColourButton", function(button)
+    Menu.bindTag("ColourButton", function(button)
         button.Activated:Connect(function()
             if selectedButton then
                 selectedButton.UIStroke.Transparency = 1
@@ -115,7 +108,7 @@ function Menu.init(importedModules, importedUtilities, importedDataStructures, i
     end)
 
     local openContentPage = gui.Menus.Shop.Gamepasses
-    bindTag("contentButton", function(button)
+    Menu.bindTag("contentButton", function(button)
         local contentPage = gui.Menus.Shop:FindFirstChild(button.Name)
         if contentPage then
             button.Activated:Connect(function()
@@ -162,21 +155,25 @@ end
 function Menu.setupShop()
     local suitFrame = gui.Menus.Shop.Suits
     local animFrame = gui.Menus.Shop.Anims
+    local gunFrame = gui.Menus.Shop.Guns
     local suits = constants.ShopAssets.suits
     local anims = constants.ShopAssets.animations
+    local guns = constants.ShopAssets.guns
 
     local itemFrame = ReplicatedStorage.Gui.ShopAvatarItem
 
     local equippedSuit = modules.ClientData.get("suit")
     local equippedAnim = modules.ClientData.get("deathAnimId")
+    local equippedGun = modules.ClientData.get("gun")
 
     local ownedSuits = modules.ClientData.get("ownedSuits")
     local ownedAnims = modules.ClientData.get("ownedAnims")
+    local ownedGuns = modules.ClientData.get("ownedGuns")
 
-    local equippedSuitButton, equippedAnimButton
+    local equippedSuitButton, equippedAnimButton, equippedGunButton
 
     for id, suit in ipairs(suits) do
-        if suit.isCurrentlyAvailable == false then continue end
+        if suit.isCurrentlyAvailable == false and not table.find(ownedAnims, id) then continue end
 		local frame = itemFrame:Clone()
 		frame.LayoutOrder = suit.layoutOrder or 0
         frame.Name = tostring(id)
@@ -319,6 +316,89 @@ function Menu.setupShop()
             equippedAnimButton = frame.Purchase.TextLabel
         end
     end
+
+    for id, gun in ipairs(guns) do
+        local hasPass
+        if gun.gamepassId then
+            hasPass = remotes.PlayerHasPass:InvokeServer(gun.gamepassId)
+        end
+        if gun.isCurrentlyAvailable == false and not table.find(ownedGuns, id) and not hasPass then continue end
+		local frame = itemFrame:Clone()
+		frame.LayoutOrder = gun.layoutOrder or 0
+        frame.Name = tostring(id)
+        frame.Title.Text = gun.name
+        frame.Wins.Text = gun.gamepassId and "Gamepass" or string.format("%d Wins", gun.level)   
+        
+        local model = gun.model:Clone()
+        model.Parent = frame.ViewportFrame.WorldModel
+
+        local camera = Instance.new("Camera")
+        camera.FieldOfView = 25
+        local theta = math.rad(camera.FieldOfView/2)
+        local opp = (model.PrimaryPart or model.Handle).Size.Z/2
+        local padding = 0.1
+        local adj = (opp + padding)/math.tan(theta)
+        local cameraCF = (model.PrimaryPart or model.Handle).CFrame * CFrame.Angles(0, -math.pi/2, 0) * CFrame.new(0, 0, adj)
+        camera.CFrame = cameraCF
+        
+        frame.ViewportFrame.CurrentCamera = camera
+
+        frame.Parent = gunFrame
+
+        local connection
+        frame.ViewportFrame.MouseEnter:Connect(function()
+            connection = RunService.RenderStepped:Connect(function(dt)
+                if not connection.Connected then return end
+                camera.CFrame *= CFrame.new(0, 0, -adj) * CFrame.Angles(0, math.pi/2*dt, 0) * CFrame.new(0, 0, adj)
+            end)
+        end)
+        frame.ViewportFrame.MouseLeave:Connect(function()
+            connection:Disconnect()
+            camera.CFrame = cameraCF
+        end)
+
+        local canEquip = false
+        frame.Activated:Connect(function()
+            remotes.EquipGun:FireServer(id)
+            if canEquip then
+                if equippedGunButton then equippedGunButton.Text = "Equip" end
+                equippedGunButton = frame.Purchase.TextLabel
+                equippedGunButton.Text = "Equipped"
+            end
+        end)
+        if modules.ClientData.get("wins") >= gun.level or table.find(ownedGuns, id) then
+            updateButton(frame)
+            canEquip = true
+        elseif hasPass then
+            updateButton(frame)
+            canEquip = true
+        else
+            modules.ClientData.getChanged("wins"):Connect(function(wins)
+                if wins >= gun.level and not canEquip then
+                    updateButton(frame)
+                    canEquip = true
+                end
+            end)
+            modules.ClientData.getChanged("ownedGuns"):Connect(function(ownedGuns)
+                if not canEquip and table.find(ownedGuns, id)  then
+                    updateButton(frame)
+                    canEquip = true
+                end
+            end)
+        end
+
+        if id == equippedGun then
+            frame.Purchase.TextLabel.Text = "Equipped"
+            equippedGunButton = frame.Purchase.TextLabel
+        end
+    end
+end
+
+function Menu.bindTag(tag, fun)
+    for i,v in ipairs(CollectionService:GetTagged(tag)) do
+        fun(v)
+    end
+    CollectionService:GetInstanceAddedSignal(tag):Connect(fun)
 end
 
 return Menu

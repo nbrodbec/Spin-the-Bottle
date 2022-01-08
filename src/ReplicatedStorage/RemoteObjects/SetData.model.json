@@ -1,0 +1,5 @@
+{
+    "Name": "SetData",
+    "ClassName": "RemoteEvent",
+    "$ignoreUnknownInstances": true
+}

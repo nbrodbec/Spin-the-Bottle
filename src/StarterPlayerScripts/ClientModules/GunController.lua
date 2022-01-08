@@ -7,7 +7,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local GunController = {}
 GunController.dependencies = {
-    modules = {"Stress"},
+    modules = {"Stress", "Settings"},
     utilities = {"Timer", "CameraShaker"},
     dataStructures = {},
     constants = {"Values"}
@@ -69,10 +69,11 @@ function GunController.init(importedModules, importedUtilities, importedDataStru
     GunController.cameraShaker = utilities.CameraShaker.new(Enum.RenderPriority.Last.Value, function(shakeCf)
         workspace.CurrentCamera.CFrame *= shakeCf
     end)
-    remotes.GiveGunEvent.OnClientEvent:Connect(function(players, g, blank)
+
+    remotes.GiveGunEvent.OnClientEvent:Connect(function(players, g, blank, timeWithGun)
         timer = utilities.Timer.new(constants.Values.TIME_WITH_GUN)
         timer:start()
-        task.spawn(modules.Stress.beginStress)
+        task.spawn(modules.Stress.beginStress, timeWithGun)
         GunController.giveGun()
 
         otherPlayers = players
@@ -80,17 +81,31 @@ function GunController.init(importedModules, importedUtilities, importedDataStru
         isBlank = blank
 
         timer:yield()
+
         task.wait(1)
         GunController.removeGun()
     end)
     remotes.UpdateGunJoint.OnClientEvent:Connect(GunController.updateJoint)
-    remotes.TargetChosen.OnClientEvent:Connect(function(p, g, blank)
+    remotes.TargetChosen.OnClientEvent:Connect(function(p, g, blank, target)
         if p == player then return end
         if not blank then
+            
+            -- Muzzle Flash --
             for _, child in ipairs(g.Muzzle:GetChildren()) do
                 if child:IsA("ParticleEmitter") or child:IsA("Light") then
                     child.Enabled = true
                     task.delay(0.1, function()
+                        child.Enabled = false
+                    end)
+                end
+            end
+            -- Blood --
+            local bloodAllowed = modules.Settings.getSetting("bloodEnabled")
+            for _, child in ipairs(target.Character.Head:GetChildren()) do
+                if child:IsA("ParticleEmitter") then
+                    if  bloodAllowed == false then continue end
+                    child.Enabled = true
+                    task.delay(0.8, function()
                         child.Enabled = false
                     end)
                 end
@@ -107,7 +122,7 @@ function GunController.init(importedModules, importedUtilities, importedDataStru
     end)
 end
 
-local connection
+local connections = {}
 function GunController.giveGun(model)
     disableJumpButton()
     gun = model
@@ -118,7 +133,7 @@ function GunController.giveGun(model)
     ContextActionService:BindAction("aim", GunController.aim, false, Enum.UserInputType.MouseMovement, Enum.UserInputType.Touch)
     killed = nil
     local t = 0
-    connection = RunService.Heartbeat:Connect(function(deltaTime)
+    connections[1] = RunService.Heartbeat:Connect(function(deltaTime)
         t += deltaTime
         if t > 0.1 then
             t -= 0.1
@@ -130,8 +145,9 @@ function GunController.giveGun(model)
     end)
     local humanoid = player.Character:FindFirstChild("Humanoid")
     if humanoid then
-        humanoid.Died:Connect(function()
-            connection:Disconnect()
+        connections[2] = humanoid.Died:Connect(function()
+            connections[1]:Disconnect()
+            connections[2]:Disconnect() 
             GunController.cameraShaker:Stop()
         end)
     end
@@ -148,7 +164,10 @@ function GunController.updateJoint(p, cframe)
 end
 
 function GunController.removeGun()
-    if connection then connection:Disconnect() end
+    for i, c in pairs(connections) do 
+        c:Disconnect() 
+        connections[i] = nil 
+    end
     if player.Character and player.Character.Humanoid.Health > 0 then
         player.Character.Torso["Right Shoulder"].C0 = startingC0
         remotes.UpdateGunJoint:FireServer(startingC0)
@@ -177,6 +196,19 @@ function GunController.shoot(actionName, state, object)
                 end)
             end
         end
+        local bloodAllowed = modules.Settings.getSetting("bloodEnabled")
+        if killed and killed.Character then
+            for _, child in ipairs(killed.Character.Head:GetChildren()) do
+                if child:IsA("ParticleEmitter") then
+                    if  bloodAllowed == false then continue end
+                    child.Enabled = true
+                    task.delay(0.8, function()
+                        child.Enabled = false
+                    end)
+                end
+            end
+        end
+        
 
         GunController.cameraShaker:Shake(utilities.CameraShaker.Presets.Bump)
         task.delay(1, function()

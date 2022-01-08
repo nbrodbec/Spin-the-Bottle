@@ -55,6 +55,10 @@ function Marketplace.init(importedModules, importedUtilities, importedDataStruct
                 local ownedAnims = modules.Data.get(player, "ownedAnims")
                 table.insert(ownedAnims, unlockInfo.id)
                 modules.Data.set(player, "ownedAnims", ownedAnims)
+            elseif unlockInfo.type == "gun" then
+                local ownedGuns = modules.Data.get(player, "ownedGuns")
+                table.insert(ownedGuns, unlockInfo.id)
+                modules.Data.set(player, "ownedGuns", ownedGuns)
             else
                 return Enum.ProductPurchaseDecision.NotProcessedYet
             end
@@ -71,7 +75,11 @@ function Marketplace.init(importedModules, importedUtilities, importedDataStruct
     end
 
     function remotes.PlayerHasPass.OnServerInvoke(player, idName)
-        return Marketplace.playerHasPass(player, constants.GamepassIDs[idName])
+        if type(idName) == "string" then
+            return Marketplace.playerHasPass(player, constants.GamepassIDs[idName])
+        elseif type(idName) == "number" then
+            return Marketplace.playerHasPass(player, idName)
+        end
     end
 end
 
@@ -93,6 +101,17 @@ end
 function Marketplace.promptAnimPurchase(player, id)
     shopUnlockInfo[player] = {
         type = "animation",
+        id = id
+    }
+    local success, msg = pcall(MarketplaceService.PromptProductPurchase, MarketplaceService, player, shopUnlockId)
+    if not success then
+        print("MarketplaceService.PromptGamePassPurchase Error: "..msg)
+    end
+end
+
+function Marketplace.promptGunPurchase(player, id)
+    shopUnlockInfo[player] = {
+        type = "gun",
         id = id
     }
     local success, msg = pcall(MarketplaceService.PromptProductPurchase, MarketplaceService, player, shopUnlockId)

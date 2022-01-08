@@ -47,12 +47,13 @@ function Bottle.spin(target)
     end
 end
 
+local generator = Random.new()
 function Bottle.selectPlayer(players)
     local list = {}
     for player in players.iterate() do
         table.insert(list, player)
     end
-    return list[math.random(#list)]
+    return list[generator:NextInteger(1, #list)]
 end
 
 return Bottle

@@ -1,4 +1,5 @@
 local PhysicsService = game:GetService("PhysicsService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 
 local CharacterController = {}
@@ -31,6 +32,11 @@ function CharacterController.init(importedModules, importedUtilities, importedDa
                 setGroup(v)
             end
             character.DescendantAdded:Connect(setGroup)
+
+            local head = character:WaitForChild("Head")
+            for _, particle in ipairs(ReplicatedStorage.Effects.Blood:GetChildren()) do
+                particle:Clone().Parent = head
+            end
         end
         player.CharacterAdded:Connect(onCharacterAdded)
         if player.Character then

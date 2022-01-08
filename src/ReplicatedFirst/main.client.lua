@@ -51,6 +51,7 @@ local top = logo.top
 local bottom = logo.bottom
 local cover = loadingUI.Frame.black
 local text = loadingUI.Frame.title
+local loadingBar = loadingUI.Frame.radialLoad
 
 local sound = Instance.new("Sound", SoundService)
 sound.SoundId = "rbxassetid://7384029571"
@@ -142,11 +143,21 @@ for i = 1, 200 do
     RunService.RenderStepped:Wait()
 end
 
-task.wait(1)
+loadingBar.Visible = true
+TweenService:Create(
+    loadingBar.ImageLabel,
+    fadeInfo,
+    {
+        ImageTransparency = 0
+    }
+):Play()
 
-if not loaded then loadedEvent.Event:Wait() end
-if not moduleLoaded then moduleLoadedEvent.Event:Wait() end
-if sound.IsPlaying then sound.Ended:Wait() end
+local t = -math.pi/2
+while not (loaded and moduleLoaded and not sound.IsPlaying) do
+    t += RunService.RenderStepped:Wait()
+    if t > math.pi/2 then t = -math.pi/2 end
+    loadingBar.Rotation = math.sin(2*t)*360
+end
 
 -- end intro
 
@@ -162,6 +173,7 @@ fadeOutTween:Play()
 fadeOutTween.Completed:Wait()
 
 logo.Visible = false
+loadingBar.Visible = false
 
 local fadeOutTween2 = TweenService:Create(
     loadingUI.Frame,

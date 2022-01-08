@@ -14,7 +14,7 @@ local dependencies = {
 }
 
 local Main = {}
-local VERSION = "1.0.9"
+local VERSION = "1.0.12"
 print(VERSION)
 
 ---- Private Members ----
@@ -34,6 +34,7 @@ local clientModuleNames = {
     "Intermission",
     "MinimumPlayers",
     "MusicController",
+    "Settings",
     "FinalizeClient" -- Last module
 }
 local serverModuleNames = {

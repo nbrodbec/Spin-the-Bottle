@@ -18,21 +18,9 @@ function MusicController.init(importedModules, importedUtilities, importedDataSt
     utilities = importedUtilities
     dataStructures = importedDataStructures
     constants = importedConstants
-    
-    local isMuted = false
-    modules.Gui.menuGui.Footer.Mute.Activated:Connect(function()
-        if isMuted then
-            MusicController.unpause()
-            modules.Gui.menuGui.Footer.Mute.ImageRectOffset = Vector2.new(684, 324)
-        else
-            MusicController.pause()
-            modules.Gui.menuGui.Footer.Mute.ImageRectOffset = Vector2.new(4, 404)
-        end
-        isMuted = not isMuted
-    end)
 end
 
-function MusicController.pause()
+function MusicController.mute()
     for _, musicPlayer in ipairs(CollectionService:GetTagged("speaker")) do
         for _, descendant in ipairs(musicPlayer:GetDescendants()) do
             if descendant:IsA("Sound") then
@@ -42,7 +30,7 @@ function MusicController.pause()
     end
 end
 
-function MusicController.unpause()
+function MusicController.unmute()
     for _, musicPlayer in ipairs(CollectionService:GetTagged("speaker")) do
         for _, descendant in ipairs(musicPlayer:GetDescendants()) do
             if descendant:IsA("Sound") then

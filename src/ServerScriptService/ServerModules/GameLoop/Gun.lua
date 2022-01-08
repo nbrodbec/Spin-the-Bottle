@@ -2,10 +2,10 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Gun = {}
 Gun.dependencies = {
-    modules = {"BottleSpin", "Seats", "Marketplace", "RoundSetup"},
+    modules = {"BottleSpin", "Seats", "Marketplace", "RoundSetup", "Data"},
     utilities = {"Timer"},
     dataStructures = {},
-    constants = {"Values", "GamepassIDs"}
+    constants = {"Values", "GamepassIDs", "ShopAssets"}
 }
 Gun.killStreaks = {}
 local modules
@@ -41,25 +41,13 @@ end
 
 local blanks = 0
 local total = 6
+local generator = Random.new(os.time())
 function Gun.start(players)
     local player = modules.BottleSpin.selectedPlayer
     if not player.Parent then return end
 
-    timer = utilities.Timer.new(modules.RoundSetup.details.timeWithGun)
-    local chance = 1/(total-blanks)
-    local isBlank = math.random() > chance
-    if isBlank then 
-        blanks += 1 
-    else
-        blanks = 0
-    end
-
-    local list = {}
-    for p in players.iterate() do if p ~= player then table.insert(list, p) end end
-
-    local gun = modules.Marketplace.playerHasPass(player, constants.GamepassIDs.VIP) and 
-                ReplicatedStorage.VIPGun:Clone() or
-                ReplicatedStorage.Gun:Clone()
+    local gunID = modules.Data.get(player, "gun")
+    local gun = gunID and constants.ShopAssets.guns[gunID] and constants.ShopAssets.guns[gunID].model:Clone() or ReplicatedStorage.GunModels.Gun:Clone()
     gun.Parent = workspace
     local weld = Instance.new("ManualWeld")
     weld.Parent = gun.Handle
@@ -67,41 +55,54 @@ function Gun.start(players)
     weld.Part1 = gun.Handle
     weld.C0 = CFrame.new(0, -player.Character['Right Arm'].Size.Y/2, 0) * CFrame.Angles(-math.pi/2, 0, 0)
 
-    remotes.GiveGunEvent:FireClient(player, list, gun, isBlank, modules.RoundSetup.details.timeWithGun)
-    local playerShot
-    local connection; connection = remotes.TargetChosen.OnServerEvent:Connect(function(p, target)
-        if p == player and target and players[target] then
-            playerShot = target
-            timer:stop()
-            remotes.TargetChosen:FireAllClients(player, gun, isBlank)
+    for i = 1, modules.RoundSetup.details.shotsPerPerson do
+        local list = {}
+        for p in players.iterate() do if p ~= player then table.insert(list, p) end end
+        if #list == 0 then break end
+
+        timer = utilities.Timer.new(modules.RoundSetup.details.timeWithGun)
+        local chance = (modules.RoundSetup.details.nBullets)/(total-blanks)
+        local isBlank = generator:NextNumber() > chance
+        if isBlank then 
+            blanks += 1 
+        else
+            blanks = 0
         end
-    end)
-    timer:start():yield()
-    
-    connection:Disconnect()
-    if playerShot then
-        if not isBlank then
-            Gun.killStreaks[player] = Gun.killStreaks[player] and Gun.killStreaks[player] + 1 or 1
-            if playerShot.Character then
-                local humanoid = playerShot.Character:FindFirstChild("Humanoid")
-                if humanoid then
-                    humanoid.Health = 0
+
+        remotes.GiveGunEvent:FireClient(player, list, gun, isBlank, modules.RoundSetup.details.timeWithGun)
+        local playerShot
+        local connection; connection = remotes.TargetChosen.OnServerEvent:Connect(function(p, target)
+            if p == player and target and players[target] then
+                playerShot = target
+                timer:stop()
+                remotes.TargetChosen:FireAllClients(player, gun, isBlank, playerShot)
+            end
+        end)
+        timer:start():yield()
+        
+        connection:Disconnect()
+        if playerShot then
+            if not isBlank then
+                if playerShot.Character then
+                    local humanoid = playerShot.Character:FindFirstChild("Humanoid")
+                    if humanoid then
+                        humanoid:TakeDamage(humanoid.MaxHealth+10)
+                    end
+                    players[playerShot] = nil
+                    modules.Seats.clearSeat(playerShot)
                 end
-                players[playerShot] = nil
-                modules.Seats.clearSeat(playerShot)
             end
         else
-            Gun.killStreaks[player] = 0
+            if player.Character then
+                player.Character.Humanoid.Health = 0
+                players[player] = nil
+                modules.Seats.clearSeat(player)
+                break
+            end
         end
-    else
-        Gun.killStreaks[player] = 0
-        if player.Character then
-            player.Character.Humanoid.Health = 0
-            players[player] = nil
-            modules.Seats.clearSeat(player)
-        end
+        task.wait(1)
     end
-    task.wait(1)
+    
     gun:Destroy()
 end
 

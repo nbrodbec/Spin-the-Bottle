@@ -42,13 +42,13 @@ function Stress.init(importedModules, importedUtilities, importedDataStructures,
 
     gui = modules.Gui.stressGui
 
-    timer = utilities.Timer.new(constants.Values.TIME_WITH_GUN)
 end
 
-function Stress.beginStress()
+function Stress.beginStress(t)
+    timer = utilities.Timer.new(t)
     gui.Enabled = true
     Stress.stressed = true
-    local barTween = TweenService:Create(gui.Timer.Bar, TweenInfo.new(constants.Values.TIME_WITH_GUN, Enum.EasingStyle.Quad), {Size = UDim2.new(0, 0, 1, 0)})
+    local barTween = TweenService:Create(gui.Timer.Bar, TweenInfo.new(t, Enum.EasingStyle.Quad), {Size = UDim2.new(0, 0, 1, 0)})
     barTween:Play()
     
     local vignetteTween = TweenService:Create(gui.Vignette, TweenInfo.new(12, Enum.EasingStyle.Exponential), {ImageTransparency = 0})
@@ -59,7 +59,7 @@ function Stress.beginStress()
 
     sound:Play()
     modules.GunController.cameraShaker:Start()
-    modules.GunController.cameraShaker:StartShake(0.6, 3.5, constants.Values.TIME_WITH_GUN, Vector3.new(0.25, 0.25, 0.25), Vector3.new(1, 1, 4))
+    modules.GunController.cameraShaker:StartShake(0.6, 3.5, t, Vector3.new(0.25, 0.25, 0.25), Vector3.new(1, 1, 4))
 
     timer:start():yield()
     vignetteTween:Cancel()
