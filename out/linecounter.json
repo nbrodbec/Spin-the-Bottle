@@ -1,0 +1,929 @@
+{
+    "extension": "linecounter",
+    "version": "0.2.7",
+    "workspace": "c:\\Users\\coffe\\Desktop\\Roblox\\Skum\\SDB",
+    "linecount": [
+        {
+            "version": "0.2.7",
+            "counttime": "2022-01-12 18:21:39",
+            "filesum": 70,
+            "codesum": 3666,
+            "commentsum": 2,
+            "blanksum": 657,
+            "statistics": {
+                ".lua": {
+                    "code": 3539,
+                    "comment": 2,
+                    "blank": 654
+                },
+                ".json": {
+                    "code": 127,
+                    "comment": 0,
+                    "blank": 3
+                }
+            },
+            "filelist": [
+                {
+                    "filename": "CopyOfPlaceFile.rbxl",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 3,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "default.project.json"
+                },
+                {
+                    "blank": 35,
+                    "code": 159,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedFirst\\main.client.lua"
+                },
+                {
+                    "blank": 9,
+                    "code": 39,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\DataStructures\\Queue.lua"
+                },
+                {
+                    "blank": 6,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\DataStructures\\Set.lua"
+                },
+                {
+                    "blank": 6,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\DataStructures\\Stack.lua"
+                },
+                {
+                    "blank": 13,
+                    "code": 108,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\MainModule.lua"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\ChangeAudio.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\ChangeChatColor.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\DisplayWinner.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\EquipAnim.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\EquipGun.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\EquipSuit.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\GetQueuedAudio.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\GiveGunEvent.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\InitData.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\MinimumPlayers.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\NotifyClient.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\PlayerHasPass.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\PlayerReady.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\PlayerReadyEvent.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\RoundMode.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\SetData.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\StartIntermission.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\SyncData.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\TargetChosen.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\UpdateGunJoint.model.json"
+                },
+                {
+                    "blank": 50,
+                    "code": 118,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\Utilities\\CameraShaker\\CameraShakeInstance.lua"
+                },
+                {
+                    "blank": 25,
+                    "code": 80,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\Utilities\\CameraShaker\\CameraShakePresets.lua"
+                },
+                {
+                    "blank": 64,
+                    "code": 144,
+                    "comment": 2,
+                    "filename": "src\\ReplicatedStorage\\Utilities\\CameraShaker\\init.lua"
+                },
+                {
+                    "blank": 1,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\Utilities\\DeepCopy.lua"
+                },
+                {
+                    "blank": 3,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\Utilities\\Reconcile.lua"
+                },
+                {
+                    "blank": 0,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\Utilities\\Reverse.lua"
+                },
+                {
+                    "blank": 0,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\Utilities\\Shuffle.lua"
+                },
+                {
+                    "blank": 12,
+                    "code": 84,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\Utilities\\Timer.lua"
+                },
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\main.server.lua"
+                },
+                {
+                    "blank": 11,
+                    "code": 48,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Bottle.lua"
+                },
+                {
+                    "blank": 7,
+                    "code": 46,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\CharacterController.lua"
+                },
+                {
+                    "blank": 8,
+                    "code": 53,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Chat.lua"
+                },
+                {
+                    "blank": 23,
+                    "code": 162,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Data.lua"
+                },
+                {
+                    "blank": 27,
+                    "code": 156,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Death.lua"
+                },
+                {
+                    "blank": 6,
+                    "code": 45,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\GameLoop\\BottleSpin.lua"
+                },
+                {
+                    "blank": 15,
+                    "code": 98,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\GameLoop\\Gun.lua"
+                },
+                {
+                    "blank": 21,
+                    "code": 108,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\GameLoop\\init.lua"
+                },
+                {
+                    "blank": 7,
+                    "code": 37,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\GameLoop\\Intermission.lua"
+                },
+                {
+                    "blank": 8,
+                    "code": 71,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\GameLoop\\RoundSetup.lua"
+                },
+                {
+                    "blank": 18,
+                    "code": 113,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Leaderstats.lua"
+                },
+                {
+                    "blank": 18,
+                    "code": 123,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Marketplace.lua"
+                },
+                {
+                    "blank": 7,
+                    "code": 66,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\MusicPlayer.lua"
+                },
+                {
+                    "blank": 7,
+                    "code": 52,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\NotificationService.lua"
+                },
+                {
+                    "blank": 10,
+                    "code": 60,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Seats.lua"
+                },
+                {
+                    "blank": 11,
+                    "code": 89,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Shop.lua"
+                },
+                {
+                    "blank": 10,
+                    "code": 41,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Suits.lua"
+                },
+                {
+                    "blank": 6,
+                    "code": 37,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\CameraController.lua"
+                },
+                {
+                    "blank": 17,
+                    "code": 63,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\CharacterSounds.lua"
+                },
+                {
+                    "blank": 8,
+                    "code": 42,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\ClientData.lua"
+                },
+                {
+                    "blank": 6,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\DisplayWinner.lua"
+                },
+                {
+                    "blank": 5,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\Fan.lua"
+                },
+                {
+                    "blank": 7,
+                    "code": 37,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\FinalizeClient.lua"
+                },
+                {
+                    "blank": 17,
+                    "code": 113,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\Gui.lua"
+                },
+                {
+                    "blank": 28,
+                    "code": 221,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\GunController.lua"
+                },
+                {
+                    "blank": 10,
+                    "code": 56,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\Intermission.lua"
+                },
+                {
+                    "blank": 51,
+                    "code": 360,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\Menu.lua"
+                },
+                {
+                    "blank": 8,
+                    "code": 37,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\MinimumPlayers.lua"
+                },
+                {
+                    "blank": 5,
+                    "code": 38,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\MusicController.lua"
+                },
+                {
+                    "blank": 9,
+                    "code": 57,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\Notification.lua"
+                },
+                {
+                    "blank": 5,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\RoundAnnouncement.lua"
+                },
+                {
+                    "blank": 11,
+                    "code": 65,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\Settings.lua"
+                },
+                {
+                    "blank": 15,
+                    "code": 61,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\Stress.lua"
+                },
+                {
+                    "blank": 8,
+                    "code": 41,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\Transition.lua"
+                }
+            ]
+        },
+        {
+            "version": "0.2.7",
+            "counttime": "2022-04-10 20:22:00",
+            "filesum": 76,
+            "codesum": 4040,
+            "commentsum": 2,
+            "blanksum": 701,
+            "statistics": {
+                ".json": {
+                    "code": 142,
+                    "comment": 0,
+                    "blank": 3
+                },
+                ".lua": {
+                    "code": 3898,
+                    "comment": 2,
+                    "blank": 698
+                }
+            },
+            "filelist": [
+                {
+                    "filename": "CopyOfPlaceFile.rbxl",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 3,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "default.project.json"
+                },
+                {
+                    "blank": 35,
+                    "code": 159,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedFirst\\main.client.lua"
+                },
+                {
+                    "blank": 9,
+                    "code": 39,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\DataStructures\\Queue.lua"
+                },
+                {
+                    "blank": 6,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\DataStructures\\Set.lua"
+                },
+                {
+                    "blank": 6,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\DataStructures\\Stack.lua"
+                },
+                {
+                    "blank": 13,
+                    "code": 111,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\MainModule.lua"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\ChangeAudio.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\ChangeChatColor.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\DisplayWinner.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\EquipAnim.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\EquipGun.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\EquipSuit.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\GetQueuedAudio.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\GiveGunEvent.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\InitData.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\MakeSystemMessage.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\MinimumPlayers.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\NotifyClient.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\PlayerHasPass.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\PlayerReady.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\PlayerReadyEvent.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\RequestGamemode.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\RequestMusic.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\RoundMode.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\SetData.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\StartIntermission.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\SyncData.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\TargetChosen.model.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\RemoteObjects\\UpdateGunJoint.model.json"
+                },
+                {
+                    "blank": 50,
+                    "code": 118,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\Utilities\\CameraShaker\\CameraShakeInstance.lua"
+                },
+                {
+                    "blank": 25,
+                    "code": 80,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\Utilities\\CameraShaker\\CameraShakePresets.lua"
+                },
+                {
+                    "blank": 64,
+                    "code": 144,
+                    "comment": 2,
+                    "filename": "src\\ReplicatedStorage\\Utilities\\CameraShaker\\init.lua"
+                },
+                {
+                    "blank": 1,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\Utilities\\DeepCopy.lua"
+                },
+                {
+                    "blank": 3,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\Utilities\\Reconcile.lua"
+                },
+                {
+                    "blank": 0,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\Utilities\\Reverse.lua"
+                },
+                {
+                    "blank": 0,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\Utilities\\Shuffle.lua"
+                },
+                {
+                    "blank": 12,
+                    "code": 83,
+                    "comment": 0,
+                    "filename": "src\\ReplicatedStorage\\Utilities\\Timer.lua"
+                },
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\main.server.lua"
+                },
+                {
+                    "blank": 15,
+                    "code": 108,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Bartender.lua"
+                },
+                {
+                    "blank": 11,
+                    "code": 48,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Bottle.lua"
+                },
+                {
+                    "blank": 7,
+                    "code": 47,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\CharacterController.lua"
+                },
+                {
+                    "blank": 9,
+                    "code": 56,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Chat.lua"
+                },
+                {
+                    "blank": 23,
+                    "code": 163,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Data.lua"
+                },
+                {
+                    "blank": 27,
+                    "code": 156,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Death.lua"
+                },
+                {
+                    "blank": 6,
+                    "code": 45,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\GameLoop\\BottleSpin.lua"
+                },
+                {
+                    "blank": 15,
+                    "code": 98,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\GameLoop\\Gun.lua"
+                },
+                {
+                    "blank": 21,
+                    "code": 108,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\GameLoop\\init.lua"
+                },
+                {
+                    "blank": 7,
+                    "code": 37,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\GameLoop\\Intermission.lua"
+                },
+                {
+                    "blank": 11,
+                    "code": 78,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\GameLoop\\RoundSetup.lua"
+                },
+                {
+                    "blank": 20,
+                    "code": 125,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Leaderstats.lua"
+                },
+                {
+                    "blank": 17,
+                    "code": 144,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Marketplace.lua"
+                },
+                {
+                    "blank": 15,
+                    "code": 143,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\MusicPlayer.lua"
+                },
+                {
+                    "blank": 7,
+                    "code": 52,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\NotificationService.lua"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Permissions.lua"
+                },
+                {
+                    "blank": 10,
+                    "code": 60,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Seats.lua"
+                },
+                {
+                    "blank": 12,
+                    "code": 95,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Shop.lua"
+                },
+                {
+                    "blank": 10,
+                    "code": 41,
+                    "comment": 0,
+                    "filename": "src\\ServerScriptService\\ServerModules\\Suits.lua"
+                },
+                {
+                    "blank": 6,
+                    "code": 37,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\CameraController.lua"
+                },
+                {
+                    "blank": 17,
+                    "code": 63,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\CharacterSounds.lua"
+                },
+                {
+                    "blank": 5,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\ClientChat.lua"
+                },
+                {
+                    "blank": 8,
+                    "code": 42,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\ClientData.lua"
+                },
+                {
+                    "blank": 6,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\DisplayWinner.lua"
+                },
+                {
+                    "blank": 5,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\Fan.lua"
+                },
+                {
+                    "blank": 7,
+                    "code": 37,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\FinalizeClient.lua"
+                },
+                {
+                    "blank": 17,
+                    "code": 113,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\Gui.lua"
+                },
+                {
+                    "blank": 28,
+                    "code": 221,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\GunController.lua"
+                },
+                {
+                    "blank": 10,
+                    "code": 56,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\Intermission.lua"
+                },
+                {
+                    "blank": 55,
+                    "code": 407,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\Menu.lua"
+                },
+                {
+                    "blank": 8,
+                    "code": 37,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\MinimumPlayers.lua"
+                },
+                {
+                    "blank": 5,
+                    "code": 38,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\MusicController.lua"
+                },
+                {
+                    "blank": 9,
+                    "code": 57,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\Notification.lua"
+                },
+                {
+                    "blank": 5,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\RoundAnnouncement.lua"
+                },
+                {
+                    "blank": 11,
+                    "code": 82,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\Settings.lua"
+                },
+                {
+                    "blank": 15,
+                    "code": 61,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\Stress.lua"
+                },
+                {
+                    "blank": 8,
+                    "code": 41,
+                    "comment": 0,
+                    "filename": "src\\StarterPlayerScripts\\ClientModules\\Transition.lua"
+                }
+            ]
+        }
+    ]
+}

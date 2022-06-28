@@ -21,8 +21,6 @@ local loadables = {
     loadingUI,
     "rbxassetid://7384029571",
     SoundService, 
-    "rbxassetid://474829770",
-    "rbxassetid://4919760420",
     "rbxassetid://1835749037",
     "rbxassetid://1841979451",
     "rbxassetid://1837566969"

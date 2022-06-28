@@ -14,7 +14,7 @@ local dependencies = {
 }
 
 local Main = {}
-local VERSION = "1.0.12"
+local VERSION = "1.0.22"
 print(VERSION)
 
 ---- Private Members ----
@@ -24,6 +24,7 @@ local clientModuleNames = {
     "CharacterSounds",
     "ClientData",
     "Gui",
+    "Notification",
     "Menu",
     "Stress",
     "Transition",
@@ -35,6 +36,8 @@ local clientModuleNames = {
     "MinimumPlayers",
     "MusicController",
     "Settings",
+    "ClientChat",
+    "LightsEffects",
     "FinalizeClient" -- Last module
 }
 local serverModuleNames = {
@@ -52,8 +55,11 @@ local serverModuleNames = {
     "Marketplace",
     "MusicPlayer",
     "Chat",
+    "NotificationService",
     "Shop",
-    "CharacterController"
+    "CharacterController",
+    "Bartender",
+    "Permissions"
 }
 local modules = {}
 

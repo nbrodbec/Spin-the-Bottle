@@ -4,7 +4,7 @@ local Players = game:GetService("Players")
 
 local CharacterController = {}
 CharacterController.dependencies = {
-    modules = {},
+    modules = {"Marketplace", "Permissions"},
     utilities = {},
     dataStructures = {},
     constants = {}
@@ -24,9 +24,10 @@ function CharacterController.init(importedModules, importedUtilities, importedDa
     
     local function onPlayerAdded(player)
         local function onCharacterAdded(character)
+            local groupName = if (modules.Marketplace.playerHasPass(player, 27482492) or modules.Permissions.hasPermissions(player, 3)) then "VIP_Character" else "Character"
             local function setGroup(part)
                 if not part:IsA("BasePart") then return end
-                PhysicsService:SetPartCollisionGroup(part, "Character")
+                PhysicsService:SetPartCollisionGroup(part, groupName)
             end
             for _, v in ipairs(character:GetDescendants()) do
                 setGroup(v)

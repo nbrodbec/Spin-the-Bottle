@@ -1,0 +1,5 @@
+{
+    "Name": "RequestGamemode",
+    "ClassName": "RemoteFunction",
+    "$ignoreUnknownInstances": true
+}

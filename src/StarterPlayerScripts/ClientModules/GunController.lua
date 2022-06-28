@@ -7,7 +7,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local GunController = {}
 GunController.dependencies = {
-    modules = {"Stress", "Settings"},
+    modules = {"Stress", "Settings", "LightsEffects"},
     utilities = {"Timer", "CameraShaker"},
     dataStructures = {},
     constants = {"Values"}
@@ -71,6 +71,7 @@ function GunController.init(importedModules, importedUtilities, importedDataStru
     end)
 
     remotes.GiveGunEvent.OnClientEvent:Connect(function(players, g, blank, timeWithGun)
+        modules.LightsEffects.lightsOn()
         timer = utilities.Timer.new(constants.Values.TIME_WITH_GUN)
         timer:start()
         task.spawn(modules.Stress.beginStress, timeWithGun)

@@ -1,7 +1,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local BottleSpin = {}
 BottleSpin.dependencies = {
-    modules = {"Bottle", "Gun", "GameLoop", "Seats", "Leaderstats"},
+    modules = {"Bottle", "Gun", "GameLoop", "RoundSetup", "Seats", "Leaderstats"},
     utilities = {},
     dataStructures = {},
     constants = {"Values"}
@@ -40,7 +40,15 @@ function BottleSpin.start(players)
     BottleSpin.selectedPlayer = modules.Bottle.selectPlayer(players)
     local seat = modules.Seats.getSeat(BottleSpin.selectedPlayer)
     if seat then
+        if modules.RoundSetup.details.onSpinStart then
+            modules.RoundSetup.details.onSpinStart()
+        end
+
         modules.Bottle.spin(seat)
+
+        if modules.RoundSetup.details.onSpinEnd then
+            modules.RoundSetup.details.onSpinEnd()
+        end
     end
 end
 

@@ -33,7 +33,8 @@ local template = {
 
     settings = {
         bloodEnabled = true,
-        musicEnabled = true
+        musicEnabled = true,
+        bottlesEnabled = true
     },
 
     version = 1

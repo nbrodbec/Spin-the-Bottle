@@ -1,0 +1,182 @@
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2022-01-12 18:21:39
+count workspace : c:\Users\coffe\Desktop\Roblox\Skum\SDB
+total files : 70
+total code lines : 3666
+total comment lines : 2
+total blank lines : 657
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |           .lua|           3539|              2|            654|     97|
+   |          .json|            127|              0|              3|    3.5|
+   -------------------------------------------------------------------------
+CopyOfPlaceFile.rbxl, it is a binary file.
+default.project.json, code is 27, comment is 0, blank is 3.
+src\ReplicatedFirst\main.client.lua, code is 159, comment is 0, blank is 35.
+src\ReplicatedStorage\DataStructures\Queue.lua, code is 39, comment is 0, blank is 9.
+src\ReplicatedStorage\DataStructures\Set.lua, code is 33, comment is 0, blank is 6.
+src\ReplicatedStorage\DataStructures\Stack.lua, code is 26, comment is 0, blank is 6.
+src\ReplicatedStorage\MainModule.lua, code is 108, comment is 0, blank is 13.
+src\ReplicatedStorage\RemoteObjects\ChangeAudio.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\ChangeChatColor.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\DisplayWinner.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\EquipAnim.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\EquipGun.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\EquipSuit.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\GetQueuedAudio.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\GiveGunEvent.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\InitData.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\MinimumPlayers.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\NotifyClient.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\PlayerHasPass.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\PlayerReady.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\PlayerReadyEvent.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\RoundMode.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\SetData.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\StartIntermission.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\SyncData.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\TargetChosen.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\UpdateGunJoint.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\Utilities\CameraShaker\CameraShakeInstance.lua, code is 118, comment is 0, blank is 50.
+src\ReplicatedStorage\Utilities\CameraShaker\CameraShakePresets.lua, code is 80, comment is 0, blank is 25.
+src\ReplicatedStorage\Utilities\CameraShaker\init.lua, code is 144, comment is 2, blank is 64.
+src\ReplicatedStorage\Utilities\DeepCopy.lua, code is 12, comment is 0, blank is 1.
+src\ReplicatedStorage\Utilities\Reconcile.lua, code is 33, comment is 0, blank is 3.
+src\ReplicatedStorage\Utilities\Reverse.lua, code is 9, comment is 0, blank is 0.
+src\ReplicatedStorage\Utilities\Shuffle.lua, code is 8, comment is 0, blank is 0.
+src\ReplicatedStorage\Utilities\Timer.lua, code is 84, comment is 0, blank is 12.
+src\ServerScriptService\main.server.lua, code is 3, comment is 0, blank is 0.
+src\ServerScriptService\ServerModules\Bottle.lua, code is 48, comment is 0, blank is 11.
+src\ServerScriptService\ServerModules\CharacterController.lua, code is 46, comment is 0, blank is 7.
+src\ServerScriptService\ServerModules\Chat.lua, code is 53, comment is 0, blank is 8.
+src\ServerScriptService\ServerModules\Data.lua, code is 162, comment is 0, blank is 23.
+src\ServerScriptService\ServerModules\Death.lua, code is 156, comment is 0, blank is 27.
+src\ServerScriptService\ServerModules\GameLoop\BottleSpin.lua, code is 45, comment is 0, blank is 6.
+src\ServerScriptService\ServerModules\GameLoop\Gun.lua, code is 98, comment is 0, blank is 15.
+src\ServerScriptService\ServerModules\GameLoop\init.lua, code is 108, comment is 0, blank is 21.
+src\ServerScriptService\ServerModules\GameLoop\Intermission.lua, code is 37, comment is 0, blank is 7.
+src\ServerScriptService\ServerModules\GameLoop\RoundSetup.lua, code is 71, comment is 0, blank is 8.
+src\ServerScriptService\ServerModules\Leaderstats.lua, code is 113, comment is 0, blank is 18.
+src\ServerScriptService\ServerModules\Marketplace.lua, code is 123, comment is 0, blank is 18.
+src\ServerScriptService\ServerModules\MusicPlayer.lua, code is 66, comment is 0, blank is 7.
+src\ServerScriptService\ServerModules\NotificationService.lua, code is 52, comment is 0, blank is 7.
+src\ServerScriptService\ServerModules\Seats.lua, code is 60, comment is 0, blank is 10.
+src\ServerScriptService\ServerModules\Shop.lua, code is 89, comment is 0, blank is 11.
+src\ServerScriptService\ServerModules\Suits.lua, code is 41, comment is 0, blank is 10.
+src\StarterPlayerScripts\ClientModules\CameraController.lua, code is 37, comment is 0, blank is 6.
+src\StarterPlayerScripts\ClientModules\CharacterSounds.lua, code is 63, comment is 0, blank is 17.
+src\StarterPlayerScripts\ClientModules\ClientData.lua, code is 42, comment is 0, blank is 8.
+src\StarterPlayerScripts\ClientModules\DisplayWinner.lua, code is 31, comment is 0, blank is 6.
+src\StarterPlayerScripts\ClientModules\Fan.lua, code is 25, comment is 0, blank is 5.
+src\StarterPlayerScripts\ClientModules\FinalizeClient.lua, code is 37, comment is 0, blank is 7.
+src\StarterPlayerScripts\ClientModules\Gui.lua, code is 113, comment is 0, blank is 17.
+src\StarterPlayerScripts\ClientModules\GunController.lua, code is 221, comment is 0, blank is 28.
+src\StarterPlayerScripts\ClientModules\Intermission.lua, code is 56, comment is 0, blank is 10.
+src\StarterPlayerScripts\ClientModules\Menu.lua, code is 360, comment is 0, blank is 51.
+src\StarterPlayerScripts\ClientModules\MinimumPlayers.lua, code is 37, comment is 0, blank is 8.
+src\StarterPlayerScripts\ClientModules\MusicController.lua, code is 38, comment is 0, blank is 5.
+src\StarterPlayerScripts\ClientModules\Notification.lua, code is 57, comment is 0, blank is 9.
+src\StarterPlayerScripts\ClientModules\RoundAnnouncement.lua, code is 31, comment is 0, blank is 5.
+src\StarterPlayerScripts\ClientModules\Settings.lua, code is 65, comment is 0, blank is 11.
+src\StarterPlayerScripts\ClientModules\Stress.lua, code is 61, comment is 0, blank is 15.
+src\StarterPlayerScripts\ClientModules\Transition.lua, code is 41, comment is 0, blank is 8.
+===============================================================================
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2022-04-10 20:22:00
+count workspace : c:\Users\coffe\Desktop\Roblox\Skum\SDB
+total files : 76
+total code lines : 4040
+total comment lines : 2
+total blank lines : 701
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |          .json|            142|              0|              3|    3.5|
+   |           .lua|           3898|              2|            698|     96|
+   -------------------------------------------------------------------------
+CopyOfPlaceFile.rbxl, it is a binary file.
+default.project.json, code is 27, comment is 0, blank is 3.
+src\ReplicatedFirst\main.client.lua, code is 159, comment is 0, blank is 35.
+src\ReplicatedStorage\DataStructures\Queue.lua, code is 39, comment is 0, blank is 9.
+src\ReplicatedStorage\DataStructures\Set.lua, code is 33, comment is 0, blank is 6.
+src\ReplicatedStorage\DataStructures\Stack.lua, code is 26, comment is 0, blank is 6.
+src\ReplicatedStorage\MainModule.lua, code is 111, comment is 0, blank is 13.
+src\ReplicatedStorage\RemoteObjects\ChangeAudio.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\ChangeChatColor.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\DisplayWinner.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\EquipAnim.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\EquipGun.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\EquipSuit.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\GetQueuedAudio.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\GiveGunEvent.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\InitData.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\MakeSystemMessage.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\MinimumPlayers.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\NotifyClient.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\PlayerHasPass.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\PlayerReady.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\PlayerReadyEvent.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\RequestGamemode.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\RequestMusic.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\RoundMode.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\SetData.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\StartIntermission.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\SyncData.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\TargetChosen.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\RemoteObjects\UpdateGunJoint.model.json, code is 5, comment is 0, blank is 0.
+src\ReplicatedStorage\Utilities\CameraShaker\CameraShakeInstance.lua, code is 118, comment is 0, blank is 50.
+src\ReplicatedStorage\Utilities\CameraShaker\CameraShakePresets.lua, code is 80, comment is 0, blank is 25.
+src\ReplicatedStorage\Utilities\CameraShaker\init.lua, code is 144, comment is 2, blank is 64.
+src\ReplicatedStorage\Utilities\DeepCopy.lua, code is 12, comment is 0, blank is 1.
+src\ReplicatedStorage\Utilities\Reconcile.lua, code is 33, comment is 0, blank is 3.
+src\ReplicatedStorage\Utilities\Reverse.lua, code is 9, comment is 0, blank is 0.
+src\ReplicatedStorage\Utilities\Shuffle.lua, code is 8, comment is 0, blank is 0.
+src\ReplicatedStorage\Utilities\Timer.lua, code is 83, comment is 0, blank is 12.
+src\ServerScriptService\main.server.lua, code is 3, comment is 0, blank is 0.
+src\ServerScriptService\ServerModules\Bartender.lua, code is 108, comment is 0, blank is 15.
+src\ServerScriptService\ServerModules\Bottle.lua, code is 48, comment is 0, blank is 11.
+src\ServerScriptService\ServerModules\CharacterController.lua, code is 47, comment is 0, blank is 7.
+src\ServerScriptService\ServerModules\Chat.lua, code is 56, comment is 0, blank is 9.
+src\ServerScriptService\ServerModules\Data.lua, code is 163, comment is 0, blank is 23.
+src\ServerScriptService\ServerModules\Death.lua, code is 156, comment is 0, blank is 27.
+src\ServerScriptService\ServerModules\GameLoop\BottleSpin.lua, code is 45, comment is 0, blank is 6.
+src\ServerScriptService\ServerModules\GameLoop\Gun.lua, code is 98, comment is 0, blank is 15.
+src\ServerScriptService\ServerModules\GameLoop\init.lua, code is 108, comment is 0, blank is 21.
+src\ServerScriptService\ServerModules\GameLoop\Intermission.lua, code is 37, comment is 0, blank is 7.
+src\ServerScriptService\ServerModules\GameLoop\RoundSetup.lua, code is 78, comment is 0, blank is 11.
+src\ServerScriptService\ServerModules\Leaderstats.lua, code is 125, comment is 0, blank is 20.
+src\ServerScriptService\ServerModules\Marketplace.lua, code is 144, comment is 0, blank is 17.
+src\ServerScriptService\ServerModules\MusicPlayer.lua, code is 143, comment is 0, blank is 15.
+src\ServerScriptService\ServerModules\NotificationService.lua, code is 52, comment is 0, blank is 7.
+src\ServerScriptService\ServerModules\Permissions.lua, code is 28, comment is 0, blank is 6.
+src\ServerScriptService\ServerModules\Seats.lua, code is 60, comment is 0, blank is 10.
+src\ServerScriptService\ServerModules\Shop.lua, code is 95, comment is 0, blank is 12.
+src\ServerScriptService\ServerModules\Suits.lua, code is 41, comment is 0, blank is 10.
+src\StarterPlayerScripts\ClientModules\CameraController.lua, code is 37, comment is 0, blank is 6.
+src\StarterPlayerScripts\ClientModules\CharacterSounds.lua, code is 63, comment is 0, blank is 17.
+src\StarterPlayerScripts\ClientModules\ClientChat.lua, code is 29, comment is 0, blank is 5.
+src\StarterPlayerScripts\ClientModules\ClientData.lua, code is 42, comment is 0, blank is 8.
+src\StarterPlayerScripts\ClientModules\DisplayWinner.lua, code is 31, comment is 0, blank is 6.
+src\StarterPlayerScripts\ClientModules\Fan.lua, code is 25, comment is 0, blank is 5.
+src\StarterPlayerScripts\ClientModules\FinalizeClient.lua, code is 37, comment is 0, blank is 7.
+src\StarterPlayerScripts\ClientModules\Gui.lua, code is 113, comment is 0, blank is 17.
+src\StarterPlayerScripts\ClientModules\GunController.lua, code is 221, comment is 0, blank is 28.
+src\StarterPlayerScripts\ClientModules\Intermission.lua, code is 56, comment is 0, blank is 10.
+src\StarterPlayerScripts\ClientModules\Menu.lua, code is 407, comment is 0, blank is 55.
+src\StarterPlayerScripts\ClientModules\MinimumPlayers.lua, code is 37, comment is 0, blank is 8.
+src\StarterPlayerScripts\ClientModules\MusicController.lua, code is 38, comment is 0, blank is 5.
+src\StarterPlayerScripts\ClientModules\Notification.lua, code is 57, comment is 0, blank is 9.
+src\StarterPlayerScripts\ClientModules\RoundAnnouncement.lua, code is 31, comment is 0, blank is 5.
+src\StarterPlayerScripts\ClientModules\Settings.lua, code is 82, comment is 0, blank is 11.
+src\StarterPlayerScripts\ClientModules\Stress.lua, code is 61, comment is 0, blank is 15.
+src\StarterPlayerScripts\ClientModules\Transition.lua, code is 41, comment is 0, blank is 8.
+===============================================================================

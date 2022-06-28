@@ -1,24 +1,26 @@
+local MarketplaceService = game:GetService("MarketplaceService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RoundSetup = {}
 RoundSetup.dependencies = {
-    modules = {"BottleSpin"},
+    modules = {"BottleSpin", "Permissions", "Chat"},
     utilities = {"Shuffle"},
     dataStructures = {"Queue"},
-    constants = {"Values"}
+    constants = {"Values", "GameModes"}
 }
 local modules
 local utilities
 local dataStructures
 local constants
 local remotes = ReplicatedStorage.RemoteObjects
-local roundDetails
 local rounds
+local customRounds
+local pendingRounds = {}
 
 ---- Private Functions ----
 
 local function mixRounds()
     local pool = {}
-    for _, detail in pairs(roundDetails) do
+    for _, detail in pairs(constants.GameModes) do
         for i = 1, detail.weight do
             table.insert(pool, detail)
         end
@@ -34,46 +36,54 @@ function RoundSetup.init(importedModules, importedUtilities, importedDataStructu
     dataStructures = importedDataStructures
     constants = importedConstants
 
-    RoundSetup.next = modules.BottleSpin
-    roundDetails = {
-        default = {
-            name = "Classic Round",
-            timeWithGun = constants.Values.TIME_WITH_GUN,
-            nBullets = 1,
-            shotsPerPerson = 1,
-            weight = 1
-        },
-        fast = {
-            name = "High-Stress Round",
-            timeWithGun = 4,
-            nBullets = 1,
-            shotsPerPerson = 1,
-            weight = 1
-        },
-        quickfire = {
-            name = "Quickfire Round",
-            timeWithGun = constants.Values.TIME_WITH_GUN,
-            nBullets = 6,
-            shotsPerPerson = 1,
-            weight = 1 
-        },
-        double = {
-            name = "Double-Shot Round",
-            timeWithGun = constants.Values.TIME_WITH_GUN,
-            nBullets = 1,
-            shotsPerPerson = 2,
-            weight = 1,
-        }
-    }
+    customRounds = dataStructures.Queue.new()
 
+    RoundSetup.next = modules.BottleSpin
     mixRounds()
+
+    function remotes.RequestGamemode.OnServerInvoke(player, id)
+        if id and constants.GameModes[id] then
+            if customRounds:isEmpty() then
+                RoundSetup.pendRound(player, id)
+                if modules.Permissions.hasPermissions(player, 3) then
+                    RoundSetup.confirmRound(player)
+                    modules.Chat.makeSystemMessage(
+                        string.format("%s has requested gamemode: %s", player.DisplayName, constants.GameModes[id].name),
+                        Color3.fromRGB(234, 0, 255)
+                    )
+                    return true
+                else
+                    local success, msg = pcall(MarketplaceService.PromptProductPurchase, MarketplaceService, player, 1235125981)
+                    if not success then
+                        print("MarketplaceService.PromptGamePassPurchase Error: "..msg)
+                    end
+                    return true
+                end
+            else
+                return false
+            end
+        end
+    end
 end
 
 function RoundSetup.start()
     if rounds:isEmpty() then mixRounds() end
-    RoundSetup.details = rounds:dequeue()
+    RoundSetup.details = customRounds:dequeue() or rounds:dequeue()
     remotes.RoundMode:FireAllClients(RoundSetup.details.name)
     task.wait(3)
+end
+
+function RoundSetup.pendRound(player, roundId)
+    pendingRounds[player] = roundId
+end
+
+function RoundSetup.confirmRound(player)
+    local roundId = pendingRounds[player]
+    if roundId then
+        customRounds:enqueue(constants.GameModes[roundId])
+        pendingRounds[player] = nil
+        return constants.GameModes[roundId]
+    end
 end
 
 return RoundSetup

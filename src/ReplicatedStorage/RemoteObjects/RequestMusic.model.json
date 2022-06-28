@@ -1,0 +1,5 @@
+{
+    "Name": "RequestMusic",
+    "ClassName": "RemoteFunction",
+    "$ignoreUnknownInstances": true
+}

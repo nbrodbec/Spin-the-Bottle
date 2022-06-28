@@ -58,4 +58,8 @@ function Chat.changeNameColor(player, color)
     speaker:SetExtraData("NameColor", color)
 end
 
+function Chat.makeSystemMessage(msg, color)
+    remotes.MakeSystemMessage:FireAllClients(msg, color)
+end
+
 return Chat

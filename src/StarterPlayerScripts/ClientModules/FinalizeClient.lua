@@ -33,6 +33,11 @@ function FinalizeClient.init(importedModules, importedUtilities, importedDataStr
     print("Finalizing")
     coroutine.wrap(disableReset)()
     remotes.PlayerReady:InvokeServer(Players.LocalPlayer)
+end
+
+function FinalizeClient.onLoadFinished()
+    
+    remotes.PlayerReadyEvent:FireServer()
     print("Finalized")
 end
 

@@ -1,0 +1,5 @@
+{
+    "Name": "LightsOff",
+    "ClassName": "RemoteEvent",
+    "$ignoreUnknownInstances": true
+}

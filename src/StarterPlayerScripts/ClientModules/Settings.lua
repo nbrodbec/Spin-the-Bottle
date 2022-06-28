@@ -1,3 +1,4 @@
+local CollectionService = game:GetService("CollectionService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Settings = {}
 Settings.dependencies = {
@@ -53,6 +54,12 @@ function Settings.loadSettings()
             gui.Menus.Settings.bloodEnabled.Frame.button.BackgroundTransparency = 1
         end
 
+        -- Set Bottles --
+        if settings.bottlesEnabled == false then
+            for _, v in ipairs(CollectionService:GetTagged("bottle")) do
+                v.Parent = ReplicatedStorage.HiddenBottles
+            end
+        end
     end
 end
 
@@ -68,6 +75,16 @@ function Settings.toggleSetting(settingName)
         remotes.SetData:FireServer("settings", settings)
         if settingName == "musicEnabled" then
             if settings[settingName] then modules.MusicController.unmute() else modules.MusicController.mute() end
+        elseif settingName == "bottlesEnabled" then
+            if settings[settingName] then 
+                 for _, v in ipairs(CollectionService:GetTagged("bottle")) do
+                     v.Parent = workspace
+                 end
+            else 
+                for _, v in ipairs(CollectionService:GetTagged("bottle")) do
+                    v.Parent = ReplicatedStorage.HiddenBottles
+                end
+            end
         end
         return settings[settingName]
     end

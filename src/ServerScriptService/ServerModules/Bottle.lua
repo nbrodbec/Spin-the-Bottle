@@ -39,12 +39,14 @@ function Bottle.spin(target)
     local a = math.rad(constants.Values.BOTTLE_DECEL)
     local vInitial = math.sqrt(2 * a * totalTheta)
     local v = vInitial
+    bottle.Spin:Play()
     while v > 0 do
         local dt = RunService.Heartbeat:Wait()
         v -= a*dt
         local theta = v*dt
         bottle.CFrame *= CFrame.Angles(0, theta, 0)
     end
+    bottle.Spin:Stop()
 end
 
 local generator = Random.new()

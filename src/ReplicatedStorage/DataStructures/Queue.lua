@@ -5,7 +5,7 @@ function Queue.new(array)
     return setmetatable({
         list = array or {},
         head = 1,
-        tail = 0
+        tail = array and #array or 0
     }, Queue)
 end
 

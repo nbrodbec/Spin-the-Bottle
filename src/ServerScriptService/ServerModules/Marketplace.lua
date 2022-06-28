@@ -4,10 +4,10 @@ local Players = game:GetService("Players")
 
 local Marketplace = {}
 Marketplace.dependencies = {
-    modules = {"Data", "MusicPlayer"},
+    modules = {"Data", "MusicPlayer", "Chat", "RoundSetup"},
     utilities = {},
     dataStructures = {},
-    constants = {"GamepassIDs"}
+    constants = {"GamepassIDs", "ShopAssets"}
 }
 local modules
 local utilities
@@ -15,11 +15,29 @@ local dataStructures
 local constants
 local remotes = ReplicatedStorage.RemoteObjects
 
-local shopUnlockId = 1217983283
+local shopUnlockIds = {
+    [1217983283] = 50,
+    [1235023917] = 100,
+    [1235024065] = 200,
+    [1235024075] = 500,
+}
 local shopUnlockInfo = {}
 
-local customMusicId = 0
-local customMusicInfo = {}
+local customMusicId = 1235048301
+local customRoundId = 1235125981
+
+local function getShopUnlockId(player, price)
+    local wins = modules.Data.get(player, "wins")
+    local closestId, difference = 1217983283, math.huge
+    local diff = math.abs(price - wins)
+    for id, amt in pairs(shopUnlockIds) do
+        local dif = math.abs(amt - diff)
+        if dif < difference then
+            closestId, difference = id, dif
+        end
+    end
+    return closestId
+end
 
 ---- Private Functions ----
 
@@ -43,7 +61,7 @@ function Marketplace.init(importedModules, importedUtilities, importedDataStruct
 
     function MarketplaceService.ProcessReceipt(info)
         local player = Players:GetPlayerByUserId(info.PlayerId)
-        if info.ProductId == shopUnlockId then
+        if shopUnlockIds[info.ProductId] then
             local unlockInfo = shopUnlockInfo[player]
             if not unlockInfo then return Enum.ProductPurchaseDecision.NotProcessedYet end
 
@@ -67,9 +85,25 @@ function Marketplace.init(importedModules, importedUtilities, importedDataStruct
             shopUnlockInfo[player] = nil
             return Enum.ProductPurchaseDecision.PurchaseGranted
         elseif info.ProductId == customMusicId then
-            local musicInfo = customMusicInfo[player]
-            if not musicInfo then return Enum.ProductPurchaseDecision.NotProcessedYet end
-            modules.MusicPlayer.addToQueue(musicInfo.id)
+            local id = modules.MusicPlayer.confirmRequest(player)
+            if id then
+                local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, id)
+                if success then
+                    modules.Chat.makeSystemMessage(
+                        string.format("%s has requested song: %s", player.DisplayName, info.Name),
+                        Color3.new(1, 0.901960, 0)
+                    )
+                end
+                return Enum.ProductPurchaseDecision.PurchaseGranted
+            else
+                return Enum.ProductPurchaseDecision.NotProcessedYet 
+            end
+        elseif info.ProductId == customRoundId then
+            local details = modules.RoundSetup.confirmRound(player)
+            modules.Chat.makeSystemMessage(
+                        string.format("%s has requested gamemode: %s", player.DisplayName, details.name),
+                        Color3.fromRGB(234, 0, 255)
+                    )
             return Enum.ProductPurchaseDecision.PurchaseGranted
         end
     end
@@ -92,7 +126,9 @@ function Marketplace.promptSuitPurchase(player, id)
         type = "suit",
         id = id
     }
-    local success, msg = pcall(MarketplaceService.PromptProductPurchase, MarketplaceService, player, shopUnlockId)
+    print("Prompting...")
+    local price = constants.ShopAssets.suits[id].level
+    local success, msg = pcall(MarketplaceService.PromptProductPurchase, MarketplaceService, player, getShopUnlockId(player, price))
     if not success then
         print("MarketplaceService.PromptGamePassPurchase Error: "..msg)
     end
@@ -103,7 +139,8 @@ function Marketplace.promptAnimPurchase(player, id)
         type = "animation",
         id = id
     }
-    local success, msg = pcall(MarketplaceService.PromptProductPurchase, MarketplaceService, player, shopUnlockId)
+    local price = constants.ShopAssets.animations[id].level
+    local success, msg = pcall(MarketplaceService.PromptProductPurchase, MarketplaceService, player, getShopUnlockId(player, price))
     if not success then
         print("MarketplaceService.PromptGamePassPurchase Error: "..msg)
     end
@@ -114,28 +151,11 @@ function Marketplace.promptGunPurchase(player, id)
         type = "gun",
         id = id
     }
-    local success, msg = pcall(MarketplaceService.PromptProductPurchase, MarketplaceService, player, shopUnlockId)
+    local price = constants.ShopAssets.guns[id].level
+    local success, msg = pcall(MarketplaceService.PromptProductPurchase, MarketplaceService, player, getShopUnlockId(player, price))
     if not success then
         print("MarketplaceService.PromptGamePassPurchase Error: "..msg)
     end
 end
-
-function Marketplace.promptAudioPurchase(player, id)
-    local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, id, Enum.InfoType.Asset)
-    if success and info.AssetTypeId == 3 then
-        customMusicInfo[player] = {
-            id = id
-        }
-        local success, msg = pcall(MarketplaceService.PromptProductPurchase, MarketplaceService, player, customMusicId)
-        if not success then
-            print("MarketplaceService.PromptGamePassPurchase Error: "..msg)
-            return false, "Unknown Error"
-        else
-            return true, "Processing..."
-        end
-    end
-    return false, "Invalid ID!"
-end
-
 
 return Marketplace

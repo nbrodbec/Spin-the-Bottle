@@ -64,6 +64,9 @@ function Gui.init(importedModules, importedUtilities, importedDataStructures, im
     Gui.announcementGui = announcementGui:Clone()
     Gui.announcementGui.Parent = playerGui
 
+    local notificationGui = gui:WaitForChild("Notification")
+    Gui.notificationGui = notificationGui:Clone()
+    Gui.notificationGui.Parent = playerGui
 
     bindTag("UnderlinedButton", function(button)
         local underline = button:FindFirstChildWhichIsA("Frame")

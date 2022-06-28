@@ -8,7 +8,7 @@ Menu.dependencies = {
     modules = {"Gui", "ClientData"},
     utilities = {},
     dataStructures = {},
-    constants = {"GamepassIDs", "ShopAssets"}
+    constants = {"GamepassIDs", "ShopAssets", "GameModes"}
 }
 local modules
 local utilities
@@ -70,29 +70,80 @@ function Menu.init(importedModules, importedUtilities, importedDataStructures, i
         Menu.open("Donation")
     end)
 
+    gui.Footer.gamemode.Activated:Connect(function()
+        Menu.open("GamemodeRequest")
+    end)
+
+    gui.Footer.music.Activated:Connect(function()
+        Menu.open("AudioRequest")
+    end)
+
     Menu.bindTag("exit", function(button)
         button.Activated:Connect(Menu.closeAll)
     end)
 
     local audioMenu = gui.Menus.Audio
-    audioMenu.Input.FocusLost:Connect(function(enterpressed)
-        if enterpressed then
-            local id = tonumber(audioMenu.Input.Text)
-            if id then
-                local success, msg = remotes.ChangeAudio:InvokeServer(id)
-                if success then
-                    audioMenu.Input.UIStroke.Color = Color3.new(0, 1, 0)
-                    audioMenu.Message.Text = "Success!"
-                else
-                    audioMenu.Input.UIStroke.Color = Color3.new(1, 0, 0)
-                    audioMenu.Message.Text = msg
-                end
+    audioMenu.Input.FocusLost:Connect(function()
+        local id = tonumber(audioMenu.Input.Text)
+        if id then
+            local success, msg = remotes.ChangeAudio:InvokeServer(id)
+            if success then
+                audioMenu.Input.UIStroke.Color = Color3.new(0, 1, 0)
+                audioMenu.Message.Text = "Success!"
             else
                 audioMenu.Input.UIStroke.Color = Color3.new(1, 0, 0)
-                audioMenu.Message.Text = "ID must be a number!"
+                audioMenu.Message.Text = msg
             end
+        else
+            audioMenu.Input.UIStroke.Color = Color3.new(1, 0, 0)
+            audioMenu.Message.Text = "ID must be a number!"
         end
     end)
+
+    local audioRequest = gui.Menus.AudioRequest
+    audioRequest.Input.FocusLost:Connect(function()
+        local id = tonumber(audioRequest.Input.Text)
+        if id then
+            local success, msg = remotes.RequestMusic:InvokeServer(id)
+            if success then
+                audioRequest.Input.UIStroke.Color = Color3.new(0, 1, 0)
+                audioRequest.Message.Text = "Pending!"
+            else
+                audioRequest.Input.UIStroke.Color = Color3.new(1, 0, 0)
+                audioRequest.Message.Text = msg
+            end
+        else
+            audioRequest.Input.UIStroke.Color = Color3.new(1, 0, 0)
+            audioRequest.Message.Text = "ID must be a number!"
+        end
+    end)
+
+    local gamemodeRequest = gui.Menus.GamemodeRequest
+    for id, mode in pairs(constants.GameModes) do
+        local button = ReplicatedStorage:WaitForChild("GameModeButton"):Clone()
+        button.Text = mode.name
+        local debounce = false
+        button.Activated:Connect(function()
+            if debounce then return end
+            debounce = true
+            local isPending = remotes.RequestGamemode:InvokeServer(id)
+            if isPending then
+                button.UIStroke.Color = Color3.new(0, 1, 0)
+                button.Text = "Pending!"
+                task.wait(3)
+                button.UIStroke.Color = Color3.new(1, 1, 1)
+                button.Text = mode.name
+            else
+                button.UIStroke.Color = Color3.new(1, 0, 0)
+                button.Text = "A gamemode has already been requested!"
+                task.wait(3)
+                button.UIStroke.Color = Color3.new(1, 1, 1)
+                button.Text = mode.name
+            end
+            debounce = false
+        end)
+        button.Parent = gamemodeRequest.ScrollingFrame
+    end
 
     local selectedButton
     Menu.bindTag("ColourButton", function(button)
@@ -173,12 +224,16 @@ function Menu.setupShop()
     local equippedSuitButton, equippedAnimButton, equippedGunButton
 
     for id, suit in ipairs(suits) do
-        if suit.isCurrentlyAvailable == false and not table.find(ownedAnims, id) then continue end
+        local inGroup
+        if suit.groupId then
+            inGroup = player:IsInGroup(suit.groupId)
+        end
 		local frame = itemFrame:Clone()
 		frame.LayoutOrder = suit.layoutOrder or 0
         frame.Name = tostring(id)
         frame.Title.Text = suit.name
-        frame.Wins.Text = string.format("%d Wins", suit.level)
+        frame.Wins.Text = suit.groupId and "Group Member" or string.format("%d Wins", suit.level)   
+        frame.Visible = if suit.isCurrentlyAvailable == false and not table.find(ownedSuits, id) and not inGroup then false else true
 
         local dummy = frame.ViewportFrame.WorldModel.Dummy
         local description = dummy.Humanoid:GetAppliedDescription()
@@ -215,7 +270,7 @@ function Menu.setupShop()
             connection:Disconnect()
             camera.CFrame = cameraCF
         end)
-
+        
         local canEquip = false
         frame.Activated:Connect(function()
             remotes.EquipSuit:FireServer(id)
@@ -225,7 +280,10 @@ function Menu.setupShop()
                 equippedSuitButton.Text = "Equipped"
             end
         end)
-        if modules.ClientData.get("wins") >= suit.level or table.find(ownedSuits, id) then
+        if (modules.ClientData.get("wins") >= suit.level and suit.isCurrentlyAvailable) or table.find(ownedSuits, id) then
+            updateButton(frame)
+            canEquip = true
+        elseif inGroup then
             updateButton(frame)
             canEquip = true
         else
@@ -236,9 +294,10 @@ function Menu.setupShop()
                 end
             end)
             modules.ClientData.getChanged("ownedSuits"):Connect(function(ownedSuits)
-                if not canEquip and table.find(ownedSuits, id)  then
+                if table.find(ownedSuits, id)  then
                     updateButton(frame)
                     canEquip = true
+                    frame.Visible = true
                 end
             end)
         end
@@ -322,12 +381,12 @@ function Menu.setupShop()
         if gun.gamepassId then
             hasPass = remotes.PlayerHasPass:InvokeServer(gun.gamepassId)
         end
-        if gun.isCurrentlyAvailable == false and not table.find(ownedGuns, id) and not hasPass then continue end
 		local frame = itemFrame:Clone()
 		frame.LayoutOrder = gun.layoutOrder or 0
         frame.Name = tostring(id)
         frame.Title.Text = gun.name
         frame.Wins.Text = gun.gamepassId and "Gamepass" or string.format("%d Wins", gun.level)   
+        frame.Visible = if gun.isCurrentlyAvailable == false and not table.find(ownedGuns, id) and not hasPass then false else true
         
         local model = gun.model:Clone()
         model.Parent = frame.ViewportFrame.WorldModel
@@ -366,7 +425,7 @@ function Menu.setupShop()
                 equippedGunButton.Text = "Equipped"
             end
         end)
-        if modules.ClientData.get("wins") >= gun.level or table.find(ownedGuns, id) then
+        if (modules.ClientData.get("wins") >= gun.level and gun.isCurrentlyAvailable) or table.find(ownedGuns, id) then
             updateButton(frame)
             canEquip = true
         elseif hasPass then
@@ -383,6 +442,7 @@ function Menu.setupShop()
                 if not canEquip and table.find(ownedGuns, id)  then
                     updateButton(frame)
                     canEquip = true
+                    frame.Visible = true
                 end
             end)
         end

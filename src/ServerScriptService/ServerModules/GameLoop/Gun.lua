@@ -45,6 +45,9 @@ local generator = Random.new(os.time())
 function Gun.start(players)
     local player = modules.BottleSpin.selectedPlayer
     if not player.Parent then return end
+    if modules.RoundSetup.details.onGunStart then
+        modules.RoundSetup.details.onGunStart()
+    end
 
     local gunID = modules.Data.get(player, "gun")
     local gun = gunID and constants.ShopAssets.guns[gunID] and constants.ShopAssets.guns[gunID].model:Clone() or ReplicatedStorage.GunModels.Gun:Clone()
@@ -83,6 +86,9 @@ function Gun.start(players)
         connection:Disconnect()
         if playerShot then
             if not isBlank then
+                if math.random() <= modules.RoundSetup.details.backfireProbability then
+                    playerShot = player
+                end
                 if playerShot.Character then
                     local humanoid = playerShot.Character:FindFirstChild("Humanoid")
                     if humanoid then
@@ -103,6 +109,10 @@ function Gun.start(players)
         task.wait(1)
     end
     
+    if modules.RoundSetup.details.onGunEnd then
+        modules.RoundSetup.details.onGunEnd()
+    end
+
     gun:Destroy()
 end
 

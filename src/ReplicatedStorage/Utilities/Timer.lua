@@ -47,7 +47,6 @@ end
 
 function Timer:useServerTime()
     self._useServerTime = true
-    print(workspace:GetServerTimeNow())
 end
 
 function Timer:start()
