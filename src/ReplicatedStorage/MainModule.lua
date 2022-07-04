@@ -14,7 +14,7 @@ local dependencies = {
 }
 
 local Main = {}
-local VERSION = "1.0.22"
+local VERSION = "1.0.24"
 print(VERSION)
 
 ---- Private Members ----
@@ -60,6 +60,7 @@ local serverModuleNames = {
     "Shop",
     "CharacterController",
     "Bartender",
+    "BoundaryHandler",
     "Permissions"
 }
 local modules = {}
