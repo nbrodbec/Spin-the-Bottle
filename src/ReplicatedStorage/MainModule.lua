@@ -38,6 +38,7 @@ local clientModuleNames = {
     "Settings",
     "ClientChat",
     "LightsEffects",
+    "Fireworks",
     "FinalizeClient" -- Last module
 }
 local serverModuleNames = {
