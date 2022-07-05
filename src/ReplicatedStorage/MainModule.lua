@@ -23,6 +23,7 @@ local clientModuleNames = {
     "Fan",
     "CharacterSounds",
     "ClientData",
+    "FusionComponent",
     "Gui",
     "Notification",
     "Menu",

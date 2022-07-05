@@ -37,6 +37,8 @@ local template = {
         bottlesEnabled = true
     },
 
+    coins = 0,
+
     version = 1
 }
 

@@ -15,7 +15,7 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
-	"Print to console": {
+	"New module": {
 		"scope": "lua",
 		"prefix": "newmod",
 		"body": [
@@ -40,5 +40,54 @@
 			"end\n",
 			"return ${1}"
 		],
-	}
+	},
+
+	"Fusion": {
+		"scope": "lua",
+		"prefix": "fusion",
+		"body": [
+			"local Fusion = require(ReplicatedStorage.Fusion)",
+			"local New = Fusion.New",
+			"local Children = Fusion.Children",
+			"local OnEvent = Fusion.OnEvent",
+			"local OnChange = Fusion.OnChange",
+			"local State = Fusion.State",
+			"local Computed = Fusion.Computed",
+			"local Spring = Fusion.Spring"
+		],
+	},
+
+	"Component": {
+		"scope": "lua",
+		"prefix": "newcomp",
+		"body": [
+			"local ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n",
+			"local Fusion = require(ReplicatedStorage.Fusion)",
+			"local New = Fusion.New",
+			"local Children = Fusion.Children",
+			"local OnEvent = Fusion.OnEvent",
+			"local OnChange = Fusion.OnChange",
+			"local State = Fusion.State",
+			"local Computed = Fusion.Computed",
+			"local Spring = Fusion.Spring",
+			"\n",
+			"local function ${1}(props)",
+			"\t${2}",
+			"end",
+			"\nreturn ${1}"
+		],
+	},
+
+	"Story": {
+		"scope": "lua",
+		"prefix": "newstory",
+		"body": [
+			"local components = script.Parent.Parent\n",
+			"return function(target)",
+			"\t${1}",
+			"\treturn function()\n\t\t",
+			"\tend",
+			"end",
+		],
+	},
 }

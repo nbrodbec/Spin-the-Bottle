@@ -68,37 +68,37 @@ function Gui.init(importedModules, importedUtilities, importedDataStructures, im
     Gui.notificationGui = notificationGui:Clone()
     Gui.notificationGui.Parent = playerGui
 
-    bindTag("UnderlinedButton", function(button)
-        local underline = button:FindFirstChildWhichIsA("Frame")
-        local startSize = button.Size
-        if underline then
-            local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
-            button.MouseEnter:Connect(function()
-                TweenService:Create(
-                    button,
-                    tweenInfo,
-                    {Size = UDim2.new(startSize.X.Scale, startSize.X.Offset+5, startSize.Y.Scale, startSize.Y.Offset+5)}
-                ):Play()
-                TweenService:Create(
-                    underline,
-                    tweenInfo,
-                    {Size = UDim2.fromScale(0.8, 0.05)}
-                ):Play()
-            end)
-            button.MouseLeave:Connect(function()
-                TweenService:Create(
-                    button,
-                    tweenInfo,
-                    {Size = startSize}
-                ):Play()
-                TweenService:Create(
-                    underline,
-                    tweenInfo,
-                    {Size = UDim2.fromScale(0.5, 0.05)}
-                ):Play()
-            end)
-        end
-    end)
+    -- bindTag("UnderlinedButton", function(button)
+    --     local underline = button:FindFirstChildWhichIsA("Frame")
+    --     local startSize = button.Size
+    --     if underline then
+    --         local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
+    --         button.MouseEnter:Connect(function()
+    --             TweenService:Create(
+    --                 button,
+    --                 tweenInfo,
+    --                 {Size = UDim2.new(startSize.X.Scale, startSize.X.Offset+5, startSize.Y.Scale, startSize.Y.Offset+5)}
+    --             ):Play()
+    --             TweenService:Create(
+    --                 underline,
+    --                 tweenInfo,
+    --                 {Size = UDim2.fromScale(0.8, 0.05)}
+    --             ):Play()
+    --         end)
+    --         button.MouseLeave:Connect(function()
+    --             TweenService:Create(
+    --                 button,
+    --                 tweenInfo,
+    --                 {Size = startSize}
+    --             ):Play()
+    --             TweenService:Create(
+    --                 underline,
+    --                 tweenInfo,
+    --                 {Size = UDim2.fromScale(0.5, 0.05)}
+    --             ):Play()
+    --         end)
+    --     end
+    -- end)
 
     bindTag("DonationButton", function(button)
         local amt = button:GetAttribute("amount")

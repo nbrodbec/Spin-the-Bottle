@@ -5,7 +5,7 @@ local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local Menu = {}
 Menu.dependencies = {
-    modules = {"Gui", "ClientData"},
+    modules = {"Gui", "ClientData", "FusionComponent"},
     utilities = {},
     dataStructures = {},
     constants = {"GamepassIDs", "ShopAssets", "GameModes"}
@@ -40,35 +40,63 @@ function Menu.init(importedModules, importedUtilities, importedDataStructures, i
     
     gui = modules.Gui.menuGui
 
-    gui.Sidebar.Shop.Activated:Connect(function()
-        Menu.open("Shop")
-    end)
+    ---- Sidebar Fusion Components ----
 
-    gui.Sidebar.Audio.Activated:Connect(function()
-        if remotes.PlayerHasPass:InvokeServer("AUDIO") then
-            Menu.open("Audio")
-        else
-            local success, msg = pcall(MarketplaceService.PromptGamePassPurchase, MarketplaceService, player, constants.GamepassIDs.AUDIO)
-            if not success then
-                print("MarketplaceService.PromptGamePassPurchase Error: "..msg)
+    modules.FusionComponent.new "TextButton" {
+        Text = "Shop",
+        Size = UDim2.fromScale(0.8, 0),
+        Parent = gui.Sidebar,
+        Underlined = true,
+        Callback = function()
+            Menu.open("Shop")
+        end
+    }
+
+    modules.FusionComponent.new "TextButton" {
+        Text = "Death Audio",
+        Size = UDim2.fromScale(0.8, 0),
+        Parent = gui.Sidebar,
+        Underlined = true,
+        Callback = function()
+            if remotes.PlayerHasPass:InvokeServer("AUDIO") then
+                Menu.open("Audio")
+            else
+                local success, msg = pcall(MarketplaceService.PromptGamePassPurchase, MarketplaceService, player, constants.GamepassIDs.AUDIO)
+                if not success then
+                    print("MarketplaceService.PromptGamePassPurchase Error: "..msg)
+                end
             end
         end
-    end)
+    }
 
-    gui.Sidebar.VIP.Activated:Connect(function()
-        if remotes.PlayerHasPass:InvokeServer("VIP") then
-            Menu.open("VIP")
-        else
-            local success, msg = pcall(MarketplaceService.PromptGamePassPurchase, MarketplaceService, player, constants.GamepassIDs.VIP)
-            if not success then
-                print("MarketplaceService.PromptGamePassPurchase Error: "..msg)
+    modules.FusionComponent.new "TextButton" {
+        Text = "VIP",
+        Size = UDim2.fromScale(0.8, 0),
+        Parent = gui.Sidebar,
+        Underlined = true,
+        Callback = function()
+            if remotes.PlayerHasPass:InvokeServer("VIP") then
+                Menu.open("VIP")
+            else
+                local success, msg = pcall(MarketplaceService.PromptGamePassPurchase, MarketplaceService, player, constants.GamepassIDs.VIP)
+                if not success then
+                    print("MarketplaceService.PromptGamePassPurchase Error: "..msg)
+                end
             end
         end
-    end)
+    }
 
-    gui.Sidebar.Donations.Activated:Connect(function()
-        Menu.open("Donation")
-    end)
+    modules.FusionComponent.new "TextButton" {
+        Text = "Donate",
+        Size = UDim2.fromScale(0.8, 0),
+        Parent = gui.Sidebar,
+        Underlined = true,
+        Callback = function()
+            Menu.open("Donation")
+        end
+    }
+
+    --------
 
     gui.Footer.gamemode.Activated:Connect(function()
         Menu.open("GamemodeRequest")

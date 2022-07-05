@@ -60,6 +60,7 @@ function Leaderstats.init(importedModules, importedUtilities, importedDataStruct
     Players.PlayerAdded:Connect(function(player)
         local leaderstats = Instance.new("Model")
         leaderstats.Name = "leaderstats"
+        
         local wins = Instance.new("IntValue", leaderstats)
         wins.Name = "Wins"
         wins.Value = modules.Data.get(player, "wins") or 0
