@@ -109,11 +109,11 @@ function Gun.start(players)
         task.wait(1)
     end
     
+    gun:Destroy()
+
     if modules.RoundSetup.details.onGunEnd then
         modules.RoundSetup.details.onGunEnd()
     end
-
-    gun:Destroy()
 end
 
 function Gun.stop()
