@@ -1,11 +1,12 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Intermission = {}
 Intermission.dependencies = {
-    modules = {"Seats", "BottleSpin", "RoundSetup"},
+    modules = {"Seats", "BottleSpin", "RoundSetup", "GameLoop"},
     utilities = {"Timer"},
     dataStructures = {},
     constants = {"Values"}
 }
+Intermission.begin = Instance.new("BindableEvent")
 local modules
 local utilities
 local dataStructures
@@ -30,10 +31,18 @@ end
 function Intermission.start(livePlayers, players)
     local startTime = DateTime.now().UnixTimestampMillis/1000 + constants.Values.INTERMISSION_TIME
     remotes.StartIntermission:FireAllClients(startTime)
+    Intermission.begin:Fire()
+
     timer:start():yield()
-    for player in players.iterate() do
-        modules.Seats.assignSeat(player)
-        livePlayers[player] = true
+
+    if modules.GameLoop.running then
+        for player in players.iterate() do
+            modules.Seats.assignSeat(player)
+            livePlayers[player] = true
+        end
+    else
+        -- Abort
+        
     end
 end
 

@@ -28,6 +28,8 @@ local function onPlayerCountChanged()
     elseif not GameLoop.running then
         local difference = constants.Values.MIN_PLAYER_COUNT - players.size() 
         remotes.MinimumPlayers:FireAllClients(difference)
+    elseif  players.size() < constants.Values.MIN_PLAYER_COUNT and GameLoop.running then
+        GameLoop.stop()
     end
 end
 
@@ -52,7 +54,7 @@ function GameLoop.init(importedModules, importedUtilities, importedDataStructure
         events[player] = Instance.new("BindableEvent")
 
         players[player] = true
-        coroutine.wrap(onPlayerCountChanged)()
+        task.spawn(onPlayerCountChanged)
 
         debounce[player] = nil
         events[player]:Fire()
@@ -85,7 +87,7 @@ function GameLoop.init(importedModules, importedUtilities, importedDataStructure
 
         modules.Seats.clearSeat(player)
         
-        coroutine.wrap(onPlayerCountChanged)()
+        task.spawn(onPlayerCountChanged)
     end
     Players.PlayerRemoving:Connect(onRemoving)
     for player in players:iterate() do
@@ -101,9 +103,6 @@ function GameLoop.start()
         GameLoop.current = modules.Intermission
         
         livePlayers = dataStructures.Set.new()
-        for player in players.iterate() do
-            livePlayers[player] = true
-        end
 
         while GameLoop.running do
             local module = GameLoop.current
@@ -124,6 +123,16 @@ function GameLoop.stop()
     if GameLoop.current.stop then
         GameLoop.current:stop()
     end
+end
+
+function GameLoop.removePlayer(player)
+    players[player] = nil
+    task.spawn(onPlayerCountChanged)
+end
+
+function GameLoop.addPlayer(player)
+    players[player] = true
+    task.spawn(onPlayerCountChanged)
 end
 
 return GameLoop

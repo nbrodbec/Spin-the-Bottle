@@ -1,7 +1,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local MinimumPlayers = {}
 MinimumPlayers.dependencies = {
-    modules = {"Gui", "DisplayWinner"},
+    modules = {"Gui", "DisplayWinner", "Intermission"},
     utilities = {},
     dataStructures = {},
     constants = {}
@@ -31,6 +31,7 @@ end
 
 function MinimumPlayers.show()
     modules.DisplayWinner.hide()
+    modules.Intermission.stop()
     gui.Enabled = true
 end
 

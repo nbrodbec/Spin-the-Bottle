@@ -34,14 +34,14 @@ function Intermission.init(importedModules, importedUtilities, importedDataStruc
     end)
 end
 
+local aborted = false
 function Intermission.start(startTime)
     modules.MinimumPlayers.hide()
     modules.DisplayWinner.hide()
     gui.Enabled = true
     startTime -= 1.5
     local timeLeft = startTime - workspace:GetServerTimeNow()
-    local lastSecond = 0
-    while workspace:GetServerTimeNow() < startTime do
+    while workspace:GetServerTimeNow() < startTime and gui.Enabled do
         timeLeft = startTime - workspace:GetServerTimeNow()
         local t = math.floor(timeLeft)
         RunService.Heartbeat:Wait()
@@ -50,17 +50,23 @@ function Intermission.start(startTime)
         gui.Timer.Text = string.format("%.1d:%.2d", m, s)
 
         if t%2 == 1 and not SoundService.ClockTick.Playing then
-            lastSecond = t
             SoundService.ClockTick:Play()
         end
     end
-    modules.Transition.start(3)
-    Intermission.stop()
+
+    if aborted then
+        aborted = false
+    else
+        modules.Transition.start(3)
+    end
+    
+    gui.Enabled = false
     modules.Menu.closeAll()
 end
 
 function Intermission.stop()
     gui.Enabled = false
+    aborted = true
 end
 
 return Intermission

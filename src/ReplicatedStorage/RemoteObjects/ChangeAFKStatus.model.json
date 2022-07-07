@@ -1,0 +1,5 @@
+{
+    "Name": "ChangeAFKStatus",
+    "ClassName": "RemoteFunction",
+    "$ignoreUnknownInstances": true
+}

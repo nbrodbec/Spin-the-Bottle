@@ -14,6 +14,9 @@ local constants
 local remotes = ReplicatedStorage:WaitForChild("RemoteObjects")
 local gui
 
+local Fusion = require(ReplicatedStorage.Fusion)
+local State = Fusion.State
+local isAFK = State(false)
 ---- Public Functions ----
 
 function Settings.init(importedModules, importedUtilities, importedDataStructures, importedConstants)
@@ -87,6 +90,17 @@ function Settings.toggleSetting(settingName)
             end
         end
         return settings[settingName]
+    end
+end
+
+function Settings.getIsAFK()
+    return isAFK
+end
+
+function Settings.toggleAFK()
+    local newStatus = remotes.ChangeAFKStatus:InvokeServer()
+    if newStatus ~= nil then
+        isAFK:set(newStatus)
     end
 end
 
