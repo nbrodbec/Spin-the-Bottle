@@ -14,7 +14,7 @@ local dependencies = {
 }
 
 local Main = {}
-local VERSION = "1.0.25"
+local VERSION = "1.1.25"
 print(VERSION)
 
 ---- Private Members ----
@@ -27,6 +27,8 @@ local clientModuleNames = {
     "Gui",
     "Notification",
     "Menu",
+    "Sidebar",
+    "Footer",
     "Stress",
     "Transition",
     "GunController",
@@ -60,6 +62,7 @@ local serverModuleNames = {
     "NotificationService",
     "Shop",
     "CharacterController",
+    "AFKStatusHandler",
     "Bartender",
     "BoundaryHandler",
     "Permissions"

@@ -10,13 +10,13 @@ local Computed = Fusion.Computed
 local Spring = Fusion.Spring
 
 
-local function TextButton(props)
+local function ImageButton(props)
     local isHovering = State(false)
     local isClicking = State(false)
     local defaultSize = props.Size or UDim2.fromScale(0.05, 0.05)
     local dominantAxis = if defaultSize.X.Scale > defaultSize.Y.Scale then Enum.DominantAxis.Width else Enum.DominantAxis.Height
 
-    local button = New "TextButton" {
+    local button = New "ImageButton" {
         Size = Spring(Computed(function()
             if isClicking:get() then
                 return defaultSize + UDim2.fromScale(0.025, 0.025)
@@ -29,10 +29,9 @@ local function TextButton(props)
         Position = props.Position or UDim2.new(),
         AnchorPoint = Vector2.new(0.5, 0.5),
         BackgroundTransparency = 1,
-        Text = props.Text,
-        TextScaled = true,
-        Font = Enum.Font.Merriweather,
-        TextColor3 = Color3.new(1, 1, 1),
+        Image = props.Image or "",
+        ImageRectOffset = props.ImageRectOffset or Vector2.new(),
+        ImageRectSize = props.ImageRectSize or Vector2.new(),
         LayoutOrder = props.LayoutOrder or 1,
 
         [OnEvent "MouseEnter"] = function()
@@ -56,7 +55,7 @@ local function TextButton(props)
 
         [Children] = {
             New "UIAspectRatioConstraint" {
-                AspectRatio = 3.5,
+                AspectRatio = 1,
                 AspectType = Enum.AspectType.ScaleWithParentSize,
                 DominantAxis = dominantAxis
             },
@@ -84,4 +83,4 @@ local function TextButton(props)
     return button
 end
 
-return TextButton
+return ImageButton

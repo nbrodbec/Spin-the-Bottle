@@ -18,18 +18,6 @@ local gui
 local remotes = ReplicatedStorage:WaitForChild("RemoteObjects")
 local player = Players.LocalPlayer
 
----- Private Functions ----
-
-local function playerHasPass(player, id)
-    local success, hasPass = pcall(MarketplaceService.UserOwnsGamePassAsync, MarketplaceService, player.UserId, id)
-    if success then
-        return hasPass
-    else
-        print("MarketplaceService.UserOwnsGamePassAsync Error: "..hasPass)
-        return false
-    end
-end
-
 ---- Public Functions ----
 
 function Menu.init(importedModules, importedUtilities, importedDataStructures, importedConstants)
@@ -39,72 +27,6 @@ function Menu.init(importedModules, importedUtilities, importedDataStructures, i
     constants = importedConstants
     
     gui = modules.Gui.menuGui
-
-    ---- Sidebar Fusion Components ----
-
-    modules.FusionComponent.new "TextButton" {
-        Text = "Shop",
-        Size = UDim2.fromScale(0.8, 0),
-        Parent = gui.Sidebar,
-        Underlined = true,
-        Callback = function()
-            Menu.open("Shop")
-        end
-    }
-
-    modules.FusionComponent.new "TextButton" {
-        Text = "Death Audio",
-        Size = UDim2.fromScale(0.8, 0),
-        Parent = gui.Sidebar,
-        Underlined = true,
-        Callback = function()
-            if remotes.PlayerHasPass:InvokeServer("AUDIO") then
-                Menu.open("Audio")
-            else
-                local success, msg = pcall(MarketplaceService.PromptGamePassPurchase, MarketplaceService, player, constants.GamepassIDs.AUDIO)
-                if not success then
-                    print("MarketplaceService.PromptGamePassPurchase Error: "..msg)
-                end
-            end
-        end
-    }
-
-    modules.FusionComponent.new "TextButton" {
-        Text = "VIP",
-        Size = UDim2.fromScale(0.8, 0),
-        Parent = gui.Sidebar,
-        Underlined = true,
-        Callback = function()
-            if remotes.PlayerHasPass:InvokeServer("VIP") then
-                Menu.open("VIP")
-            else
-                local success, msg = pcall(MarketplaceService.PromptGamePassPurchase, MarketplaceService, player, constants.GamepassIDs.VIP)
-                if not success then
-                    print("MarketplaceService.PromptGamePassPurchase Error: "..msg)
-                end
-            end
-        end
-    }
-
-    modules.FusionComponent.new "TextButton" {
-        Text = "Donate",
-        Size = UDim2.fromScale(0.8, 0),
-        Parent = gui.Sidebar,
-        Underlined = true,
-        Callback = function()
-            Menu.open("Donation")
-        end
-    }
-
-    --------
-
-    gui.Footer.gamemode.Activated:Connect(function()
-        Menu.open("GamemodeRequest")
-    end)
-
-    gui.Footer.music.Activated:Connect(function()
-        Menu.open("AudioRequest")
-    end)
 
     Menu.bindTag("exit", function(button)
         button.Activated:Connect(Menu.closeAll)
