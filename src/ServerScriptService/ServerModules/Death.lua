@@ -162,13 +162,17 @@ function Death.init(importedModules, importedUtilities, importedDataStructures, 
             local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, id, Enum.InfoType.Asset)
             if success then
                 if info.AssetTypeId == 3 then
-                    modules.Data.set(player, "deathSound", string.format("rbxassetid://%d", id))
-                    if player.Character then
-                        if player.Character.Head:FindFirstChild("Sound") then
-                            player.Character.Head.Sound.SoundId = string.format("rbxassetid://%d", id)
+                    if info.IsPublicDomain then
+                        modules.Data.set(player, "deathSound", string.format("rbxassetid://%d", id))
+                        if player.Character then
+                            if player.Character.Head:FindFirstChild("Sound") then
+                                player.Character.Head.Sound.SoundId = string.format("rbxassetid://%d", id)
+                            end
                         end
+                        return true
+                    else
+                        return false, "Sound unavailable!"
                     end
-                    return true
                 else
                     return false, "Invalid ID!"
                 end

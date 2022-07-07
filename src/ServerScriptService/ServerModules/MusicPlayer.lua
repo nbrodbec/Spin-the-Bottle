@@ -66,7 +66,7 @@ function MusicPlayer.init(importedModules, importedUtilities, importedDataStruct
                             string.format("%s has requested song: %s", player.DisplayName, info.Name),
                             Color3.new(1, 0.901960, 0)
                         )
-                        return true
+                        return true 
                     else
                         local success, msg = pcall(MarketplaceService.PromptProductPurchase, MarketplaceService, player, 1235048301)
                         if not success then
