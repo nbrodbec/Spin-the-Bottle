@@ -11,8 +11,11 @@ local utilities
 local dataStructures
 local constants
 local remotes = ReplicatedStorage:WaitForChild("RemoteObjects")
-local data
+local data = {}
 local events = {}
+
+local Fusion = require(ReplicatedStorage.Fusion)
+local State = Fusion.State
 
 ---- Public Functions ----
 
@@ -22,12 +25,15 @@ function ClientData.init(importedModules, importedUtilities, importedDataStructu
     dataStructures = importedDataStructures
     constants = importedConstants
     
-    data = remotes.InitData:InvokeServer()
+    local rawData = remotes.InitData:InvokeServer()
+    for k, v in rawData do
+        data[k] = State(v)
+    end
 
     remotes.SyncData.OnClientEvent:Connect(ClientData.set)
 end
 
-function ClientData.get(...)
+function ClientData.getState(...)
     local keys = {...}
     local toReturn = {}
     for _, key in ipairs(keys) do
@@ -36,8 +42,17 @@ function ClientData.get(...)
     return unpack(toReturn)
 end
 
+function ClientData.get(...)
+    local states = { ClientData.getState(...) }
+    local values = {}
+    for _, state in states do
+        table.insert(values, state:get())
+    end
+    return unpack(values)
+end
+
 function ClientData.set(key, value)
-    data[key] = value
+    data[key]:set(value)
     if events[key] then events[key]:Fire(value) end 
 end
 

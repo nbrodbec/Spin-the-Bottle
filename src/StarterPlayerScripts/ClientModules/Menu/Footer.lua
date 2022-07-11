@@ -52,7 +52,7 @@ function Footer.init(importedModules, importedUtilities, importedDataStructures,
                 Image = "rbxassetid://3926307971",
                 ImageRectOffset = Vector2.new(324, 124),
                 ImageRectSize = Vector2.new(36, 36),
-                Size = UDim2.fromScale(0, 0.95),
+                Size = UDim2.fromScale(0, 1),
                 LayoutOrder = 0,
                 Callback = function()
                     modules.Menu.open("Settings")
@@ -103,7 +103,7 @@ function Footer.init(importedModules, importedUtilities, importedDataStructures,
                                 return Vector2.new(36, 36)
                             end
                         end),
-                        Size = UDim2.fromScale(0, 0.95),
+                        Size = UDim2.fromScale(0, 1),
                         LayoutOrder = 0,
                         Callback = function()
                             isOpen:set(not isOpen:get())
@@ -115,7 +115,7 @@ function Footer.init(importedModules, importedUtilities, importedDataStructures,
                     },
                     modules.FusionComponent.new "TextButton" {
                         Text = "Request Gamemode",
-                        Size = UDim2.fromScale(0, 0.95),
+                        Size = UDim2.fromScale(0, 1),
                         LayoutOrder = -2,
                         Callback = function()
                             modules.Menu.open("GamemodeRequest")
@@ -127,7 +127,7 @@ function Footer.init(importedModules, importedUtilities, importedDataStructures,
                     },
                     modules.FusionComponent.new "TextButton" {
                         Text = "Request Music",
-                        Size = UDim2.fromScale(0, 0.95),
+                        Size = UDim2.fromScale(0, 1),
                         LayoutOrder = -4,
                         Callback = function()
                             modules.Menu.open("AudioRequest")
@@ -145,7 +145,7 @@ function Footer.init(importedModules, importedUtilities, importedDataStructures,
                                 return "AFK Mode: Off"
                             end
                         end),
-                        Size = UDim2.fromScale(0, 0.95),
+                        Size = UDim2.fromScale(0, 1),
                         LayoutOrder = -6,
                         Callback = function()
                             modules.Settings.toggleAFK()

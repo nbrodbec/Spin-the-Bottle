@@ -29,6 +29,7 @@ local clientModuleNames = {
     "Menu",
     "Sidebar",
     "Footer",
+    "Header",
     "Stress",
     "Transition",
     "GunController",
