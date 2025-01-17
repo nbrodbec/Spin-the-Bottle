@@ -3,9 +3,15 @@ Free-to-play round-based russian roulette-inspired game developed for the Roblox
 
 ## Project Structure
 The project is composed entirely of Lua modules. 
+
 The main module runner is located at `src/ReplicatedStorage/MainModules` and provides every module with the dependencies it needs by first requiring the module and then calling its `init()` function.
-Respecting the client-server model that the Roblox platform enforces, server modules are located in `src/ServerScriptService/ServerModules` and client modules are located in `src/StarterPlayerScripts/ClientModules`. Shared utilities, libraries and datastructure implementations are located in `src/ReplicatedStorage`.
+
+Respecting the client-server model that the Roblox platform enforces, server modules are located in `src/ServerScriptService/ServerModules` and client modules are located in `src/StarterPlayerScripts/ClientModules`. 
+
+Shared utilities, libraries and datastructure implementations are located in `src/ReplicatedStorage`.
+
 Communication between server and client is accomplished using the [RemoteEvents](https://create.roblox.com/docs/reference/engine/classes/RemoteEvent) and [RemoteFunctions](https://create.roblox.com/docs/reference/engine/classes/RemoteFunction) in `src/ReplicatedStorage/RemoteObjects`.
+
 Several modules containing only constants are also included in the project, but not tracked by source control. They live solely in Roblox Studio so the non-programmer developers can interact with them.
 
 ## External Dependencies
